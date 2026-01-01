@@ -342,16 +342,10 @@ function App() {
                     cy="40"
                     r="34"
                     fill="none"
-                    stroke="#e5e5e5"
+                    stroke="#ff6b6b"
                     strokeWidth="6"
                   />
                 </svg>
-                <div className="macro-icon-center protein">
-                  <svg className="macro-icon-svg" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 4L9 7H7C6.4 7 6 7.4 6 8V10C6 10.6 6.4 11 7 11H9L12 14V4Z" fill="#ff6b6b"/>
-                    <path d="M18 8L16 10H14C13.4 10 13 10.4 13 11V13C13 13.6 13.4 14 14 14H16L18 16V8Z" fill="#ff6b6b"/>
-                  </svg>
-                </div>
               </div>
             </div>
 
@@ -367,16 +361,10 @@ function App() {
                     cy="40"
                     r="34"
                     fill="none"
-                    stroke="#e5e5e5"
+                    stroke="#ffa500"
                     strokeWidth="6"
                   />
                 </svg>
-                <div className="macro-icon-center carbs">
-                  <svg className="macro-icon-svg" viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="12" r="8" fill="#ffa500"/>
-                    <path d="M8 12L10.5 14.5L16 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
               </div>
             </div>
 
@@ -392,16 +380,10 @@ function App() {
                     cy="40"
                     r="34"
                     fill="none"
-                    stroke="#e5e5e5"
+                    stroke="#4a90e2"
                     strokeWidth="6"
                   />
                 </svg>
-                <div className="macro-icon-center fat">
-                  <svg className="macro-icon-svg" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2C8 2 5 5 5 9C5 13 8 16 12 16C16 16 19 13 19 9C19 5 16 2 12 2Z" fill="#4a90e2"/>
-                    <path d="M12 6C9.8 6 8 7.8 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 7.8 14.2 6 12 6Z" fill="white" opacity="0.3"/>
-                  </svg>
-                </div>
               </div>
             </div>
           </div>
