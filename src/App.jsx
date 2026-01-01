@@ -33,38 +33,60 @@ function App() {
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
   }
 
-  // Load from localStorage
+  // Load from localStorage on mount
   useEffect(() => {
     try {
       const savedMeals = localStorage.getItem('calorieTrackerMeals')
       if (savedMeals) {
-        const parsedMeals = JSON.parse(savedMeals)
-        setMeals(parsedMeals)
+        try {
+          const parsedMeals = JSON.parse(savedMeals)
+          if (Array.isArray(parsedMeals)) {
+            setMeals(parsedMeals)
+            console.log('Loaded meals from localStorage:', parsedMeals.length)
+          }
+        } catch (parseError) {
+          console.error('Error parsing meals from localStorage:', parseError)
+        }
       }
       
       const savedGoal = localStorage.getItem('calorieTrackerGoal')
-      if (savedGoal) {
-        setDailyGoal(Number(savedGoal))
+      if (savedGoal && savedGoal !== 'null') {
+        const goalNum = Number(savedGoal)
+        if (!isNaN(goalNum) && goalNum > 0) {
+          setDailyGoal(goalNum)
+        }
       }
       
       const savedProtein = localStorage.getItem('calorieTrackerProteinGoal')
-      if (savedProtein) {
-        setProteinGoal(Number(savedProtein))
+      if (savedProtein && savedProtein !== 'null') {
+        const proteinNum = Number(savedProtein)
+        if (!isNaN(proteinNum) && proteinNum > 0) {
+          setProteinGoal(proteinNum)
+        }
       }
       
       const savedCarbs = localStorage.getItem('calorieTrackerCarbsGoal')
-      if (savedCarbs) {
-        setCarbsGoal(Number(savedCarbs))
+      if (savedCarbs && savedCarbs !== 'null') {
+        const carbsNum = Number(savedCarbs)
+        if (!isNaN(carbsNum) && carbsNum > 0) {
+          setCarbsGoal(carbsNum)
+        }
       }
       
       const savedFat = localStorage.getItem('calorieTrackerFatGoal')
-      if (savedFat) {
-        setFatGoal(Number(savedFat))
+      if (savedFat && savedFat !== 'null') {
+        const fatNum = Number(savedFat)
+        if (!isNaN(fatNum) && fatNum > 0) {
+          setFatGoal(fatNum)
+        }
       }
       
       const savedDate = localStorage.getItem('calorieTrackerSelectedDate')
       if (savedDate) {
-        setSelectedDate(new Date(savedDate))
+        const date = new Date(savedDate)
+        if (!isNaN(date.getTime())) {
+          setSelectedDate(date)
+        }
       }
     } catch (error) {
       console.error('Error loading from localStorage:', error)
@@ -73,17 +95,14 @@ function App() {
 
   // Save to localStorage - save immediately when meals change
   useEffect(() => {
-    if (meals.length >= 0) { // Save even if empty array
-      try {
-        const mealsJson = JSON.stringify(meals)
-        localStorage.setItem('calorieTrackerMeals', mealsJson)
-        console.log('Meals saved to localStorage:', meals.length)
-      } catch (error) {
-        console.error('Error saving meals to localStorage:', error)
-        // If storage is full, try to compress or remove old data
-        if (error.name === 'QuotaExceededError') {
-          alert('Speicher voll! Bitte lösche einige alte Mahlzeiten.')
-        }
+    try {
+      const mealsJson = JSON.stringify(meals)
+      localStorage.setItem('calorieTrackerMeals', mealsJson)
+    } catch (error) {
+      console.error('Error saving meals to localStorage:', error)
+      // If storage is full, try to compress or remove old data
+      if (error.name === 'QuotaExceededError') {
+        alert('Speicher voll! Bitte lösche einige alte Mahlzeiten.')
       }
     }
   }, [meals])
