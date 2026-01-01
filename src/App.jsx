@@ -71,15 +71,19 @@ function App() {
     }
   }, [])
 
-  // Save to localStorage
+  // Save to localStorage - save immediately when meals change
   useEffect(() => {
-    try {
-      localStorage.setItem('calorieTrackerMeals', JSON.stringify(meals))
-    } catch (error) {
-      console.error('Error saving meals to localStorage:', error)
-      // If storage is full, try to compress or remove old data
-      if (error.name === 'QuotaExceededError') {
-        alert('Speicher voll! Bitte lösche einige alte Mahlzeiten.')
+    if (meals.length >= 0) { // Save even if empty array
+      try {
+        const mealsJson = JSON.stringify(meals)
+        localStorage.setItem('calorieTrackerMeals', mealsJson)
+        console.log('Meals saved to localStorage:', meals.length)
+      } catch (error) {
+        console.error('Error saving meals to localStorage:', error)
+        // If storage is full, try to compress or remove old data
+        if (error.name === 'QuotaExceededError') {
+          alert('Speicher voll! Bitte lösche einige alte Mahlzeiten.')
+        }
       }
     }
   }, [meals])
@@ -430,23 +434,21 @@ function App() {
                     cy="50"
                     r="42"
                     fill="none"
-                    stroke="#e5e5e5"
+                    stroke="#f0f0f0"
                     strokeWidth="8"
                   />
-                  {proteinGoal && (
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="42"
-                      fill="none"
-                      stroke="#ff6b6b"
-                      strokeWidth="8"
-                      strokeDasharray={`${2 * Math.PI * 42}`}
-                      strokeDashoffset={`${2 * Math.PI * 42 * (1 - Math.min(percentages.protein / 100, 1))}`}
-                      strokeLinecap="round"
-                      transform="rotate(-90 50 50)"
-                    />
-                  )}
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="42"
+                    fill="none"
+                    stroke="#ff6b6b"
+                    strokeWidth="8"
+                    strokeDasharray={`${2 * Math.PI * 42}`}
+                    strokeDashoffset={proteinGoal ? `${2 * Math.PI * 42 * (1 - Math.min(percentages.protein / 100, 1))}` : `${2 * Math.PI * 42}`}
+                    strokeLinecap="round"
+                    transform="rotate(-90 50 50)"
+                  />
                 </svg>
                 <div className="macro-icon-center protein">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -469,23 +471,21 @@ function App() {
                     cy="50"
                     r="42"
                     fill="none"
-                    stroke="#e5e5e5"
+                    stroke="#f0f0f0"
                     strokeWidth="8"
                   />
-                  {carbsGoal && (
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="42"
-                      fill="none"
-                      stroke="#ffa500"
-                      strokeWidth="8"
-                      strokeDasharray={`${2 * Math.PI * 42}`}
-                      strokeDashoffset={`${2 * Math.PI * 42 * (1 - Math.min(percentages.carbs / 100, 1))}`}
-                      strokeLinecap="round"
-                      transform="rotate(-90 50 50)"
-                    />
-                  )}
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="42"
+                    fill="none"
+                    stroke="#ffa500"
+                    strokeWidth="8"
+                    strokeDasharray={`${2 * Math.PI * 42}`}
+                    strokeDashoffset={carbsGoal ? `${2 * Math.PI * 42 * (1 - Math.min(percentages.carbs / 100, 1))}` : `${2 * Math.PI * 42}`}
+                    strokeLinecap="round"
+                    transform="rotate(-90 50 50)"
+                  />
                 </svg>
                 <div className="macro-icon-center carbs">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -508,23 +508,21 @@ function App() {
                     cy="50"
                     r="42"
                     fill="none"
-                    stroke="#e5e5e5"
+                    stroke="#f0f0f0"
                     strokeWidth="8"
                   />
-                  {fatGoal && (
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="42"
-                      fill="none"
-                      stroke="#4a90e2"
-                      strokeWidth="8"
-                      strokeDasharray={`${2 * Math.PI * 42}`}
-                      strokeDashoffset={`${2 * Math.PI * 42 * (1 - Math.min(percentages.fat / 100, 1))}`}
-                      strokeLinecap="round"
-                      transform="rotate(-90 50 50)"
-                    />
-                  )}
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="42"
+                    fill="none"
+                    stroke="#4a90e2"
+                    strokeWidth="8"
+                    strokeDasharray={`${2 * Math.PI * 42}`}
+                    strokeDashoffset={fatGoal ? `${2 * Math.PI * 42 * (1 - Math.min(percentages.fat / 100, 1))}` : `${2 * Math.PI * 42}`}
+                    strokeLinecap="round"
+                    transform="rotate(-90 50 50)"
+                  />
                 </svg>
                 <div className="macro-icon-center fat">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
