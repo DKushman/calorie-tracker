@@ -136,12 +136,12 @@ body {
 .main-card {
   background: white;
   border-radius: 20px;
-  padding: 32px;
+  padding: 28px 32px;
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .calories-info {
@@ -149,70 +149,95 @@ body {
 }
 
 .calories-number {
-  font-size: 64px;
+  font-size: 56px;
   font-weight: 700;
   color: #1d1d1f;
-  margin-bottom: 4px;
-  letter-spacing: -1px;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
   line-height: 1;
 }
 
 .calories-label {
-  font-size: 17px;
+  font-size: 15px;
   color: #86868b;
   font-weight: 400;
-  margin-bottom: 8px;
-}
-
-.settings-link {
-  background: none;
-  border: none;
-  color: #007aff;
-  font-size: 15px;
-  cursor: pointer;
-  padding: 0;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.settings-link:hover {
-  color: #0051d5;
 }
 
 .main-progress {
   position: relative;
-  width: 140px;
-  height: 140px;
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
 }
 
-.calories-center {
+.flame-icon {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  font-size: 32px;
+}
+
+/* Macro Cards */
+.macro-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.macro-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   text-align: center;
+  position: relative;
   display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: 4px;
+  flex-direction: column;
+  align-items: center;
 }
 
-.calories-consumed {
-  font-size: 28px;
-  font-weight: 600;
+.macro-number {
+  font-size: 24px;
+  font-weight: 700;
   color: #1d1d1f;
+  margin-bottom: 4px;
+  letter-spacing: -0.3px;
+  line-height: 1;
 }
 
-.calories-slash {
-  font-size: 20px;
+.macro-label {
+  font-size: 12px;
   color: #86868b;
+  margin-bottom: 12px;
   font-weight: 400;
 }
 
-.calories-goal {
-  font-size: 20px;
-  color: #86868b;
-  font-weight: 400;
+.macro-card svg {
+  margin: 0 auto 8px;
+  display: block;
+}
+
+.macro-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  margin-top: 20px;
+}
+
+.macro-icon.protein {
+  filter: grayscale(0);
+}
+
+.macro-icon.carbs {
+  filter: grayscale(0);
+}
+
+.macro-icon.fat {
+  filter: grayscale(0);
 }
 
 /* Quick Add Button */
@@ -247,11 +272,11 @@ body {
 }
 
 .section-title {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
   color: #1d1d1f;
-  margin-bottom: 20px;
-  letter-spacing: -0.5px;
+  margin-bottom: 16px;
+  letter-spacing: -0.4px;
 }
 
 .empty-state {
@@ -323,19 +348,19 @@ body {
 }
 
 .meal-name {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 600;
   color: #1d1d1f;
   letter-spacing: -0.2px;
 }
 
 .meal-time {
-  font-size: 15px;
+  font-size: 14px;
   color: #86868b;
 }
 
 .meal-calories {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   color: #1d1d1f;
   margin-bottom: 6px;
@@ -344,8 +369,25 @@ body {
 .meal-macros {
   display: flex;
   gap: 12px;
-  font-size: 13px;
-  color: #86868b;
+  font-size: 12px;
+}
+
+.macro-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.protein-macro {
+  color: #ff6b6b;
+}
+
+.carbs-macro {
+  color: #ffa500;
+}
+
+.fat-macro {
+  color: #4a90e2;
 }
 
 .delete-btn {
@@ -389,31 +431,31 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
   padding: 20px;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
 }
 
 .modal {
   background: white;
-  border-radius: 20px;
-  padding: 24px;
-  max-width: 500px;
+  border-radius: 24px;
+  padding: 28px;
+  max-width: 480px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.25);
   animation: modalSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes modalSlideIn {
   from {
     opacity: 0;
-    transform: translateY(20px) scale(0.95);
+    transform: translateY(24px) scale(0.96);
   }
   to {
     opacity: 1;
@@ -425,14 +467,16 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e5e5e7;
 }
 
 .modal-header h2 {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
   color: #1d1d1f;
-  letter-spacing: -0.3px;
+  letter-spacing: -0.4px;
 }
 
 .close-btn {
@@ -468,20 +512,21 @@ body {
 
 .form-group label {
   display: block;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   color: #1d1d1f;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  letter-spacing: -0.1px;
 }
 
 .form-group input {
   width: 100%;
-  padding: 12px 16px;
-  border: 1px solid #d2d2d7;
+  padding: 14px 16px;
+  border: 1.5px solid #d2d2d7;
   border-radius: 12px;
-  font-size: 17px;
+  font-size: 16px;
   transition: all 0.2s ease;
-  background: white;
+  background: #f5f5f7;
   color: #1d1d1f;
   font-family: inherit;
 }
@@ -489,11 +534,13 @@ body {
 .form-group input:focus {
   outline: none;
   border-color: #007aff;
-  box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.08);
 }
 
 .form-group input::placeholder {
   color: #86868b;
+  font-weight: 400;
 }
 
 .file-input {
@@ -531,21 +578,23 @@ body {
 
 .submit-btn {
   width: 100%;
-  padding: 14px;
+  padding: 16px;
   background: #007aff;
   color: white;
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   font-size: 17px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   margin-top: 8px;
+  letter-spacing: -0.2px;
 }
 
 .submit-btn:hover:not(:disabled) {
   background: #0051d5;
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
 }
 
 .submit-btn:active:not(:disabled) {
@@ -572,17 +621,18 @@ body {
 }
 
 .calories-display h1 {
-  font-size: 80px;
+  font-size: 72px;
   font-weight: 700;
   color: #1d1d1f;
-  margin-bottom: 4px;
-  letter-spacing: -2px;
+  margin-bottom: 6px;
+  letter-spacing: -1.5px;
   line-height: 1;
 }
 
 .calories-display p {
-  font-size: 17px;
+  font-size: 16px;
   color: #86868b;
+  font-weight: 400;
 }
 
 .calorie-slider {
@@ -705,12 +755,56 @@ body {
   .main-card {
     flex-direction: column;
     text-align: center;
-    gap: 24px;
+    gap: 20px;
     padding: 24px;
   }
 
   .calories-number {
-    font-size: 56px;
+    font-size: 48px;
+  }
+
+  .main-progress {
+    width: 100px;
+    height: 100px;
+  }
+
+  .flame-icon {
+    font-size: 28px;
+  }
+
+  .macro-cards {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .macro-card {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 16px;
+    text-align: left;
+  }
+
+  .macro-card svg {
+    margin: 0;
+    order: 3;
+  }
+
+  .macro-icon {
+    position: static;
+    transform: none;
+    margin: 0;
+    order: 2;
+  }
+
+  .macro-number {
+    order: 1;
+    margin-bottom: 0;
+  }
+
+  .macro-label {
+    order: 1;
+    margin-bottom: 0;
+    margin-left: 8px;
   }
 
   .form-row {

@@ -5,6 +5,9 @@ function App() {
   // State Management
   const [meals, setMeals] = useState([])
   const [dailyGoal, setDailyGoal] = useState(null)
+  const [proteinGoal, setProteinGoal] = useState(null)
+  const [carbsGoal, setCarbsGoal] = useState(null)
+  const [fatGoal, setFatGoal] = useState(null)
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [showAddModal, setShowAddModal] = useState(false)
   const [showQuickAdd, setShowQuickAdd] = useState(false)
@@ -40,6 +43,18 @@ function App() {
     if (savedGoal) {
       setDailyGoal(Number(savedGoal))
     }
+    const savedProtein = localStorage.getItem('calorieTrackerProteinGoal')
+    if (savedProtein) {
+      setProteinGoal(Number(savedProtein))
+    }
+    const savedCarbs = localStorage.getItem('calorieTrackerCarbsGoal')
+    if (savedCarbs) {
+      setCarbsGoal(Number(savedCarbs))
+    }
+    const savedFat = localStorage.getItem('calorieTrackerFatGoal')
+    if (savedFat) {
+      setFatGoal(Number(savedFat))
+    }
   }, [])
 
   // Save to localStorage
@@ -52,6 +67,24 @@ function App() {
       localStorage.setItem('calorieTrackerGoal', dailyGoal.toString())
     }
   }, [dailyGoal])
+
+  useEffect(() => {
+    if (proteinGoal !== null) {
+      localStorage.setItem('calorieTrackerProteinGoal', proteinGoal.toString())
+    }
+  }, [proteinGoal])
+
+  useEffect(() => {
+    if (carbsGoal !== null) {
+      localStorage.setItem('calorieTrackerCarbsGoal', carbsGoal.toString())
+    }
+  }, [carbsGoal])
+
+  useEffect(() => {
+    if (fatGoal !== null) {
+      localStorage.setItem('calorieTrackerFatGoal', fatGoal.toString())
+    }
+  }, [fatGoal])
 
   // Get meals for selected date
   const selectedDateStr = formatDate(selectedDate)
@@ -68,17 +101,17 @@ function App() {
   // Berechne übrige Makros
   const remaining = {
     calories: dailyGoal ? dailyGoal - consumed.calories : 0,
-    protein: consumed.protein,
-    carbs: consumed.carbs,
-    fat: consumed.fat
+    protein: proteinGoal ? proteinGoal - consumed.protein : 0,
+    carbs: carbsGoal ? carbsGoal - consumed.carbs : 0,
+    fat: fatGoal ? fatGoal - consumed.fat : 0
   }
 
   // Berechne Prozentsätze für Progress Circles
   const percentages = {
-    calories: dailyGoal ? (consumed.calories / dailyGoal) * 100 : 0,
-    protein: 0,
-    carbs: 0,
-    fat: 0
+    calories: dailyGoal ? Math.min((consumed.calories / dailyGoal) * 100, 100) : 0,
+    protein: proteinGoal ? Math.min((consumed.protein / proteinGoal) * 100, 100) : 0,
+    carbs: carbsGoal ? Math.min((consumed.carbs / carbsGoal) * 100, 100) : 0,
+    fat: fatGoal ? Math.min((consumed.fat / fatGoal) * 100, 100) : 0
   }
 
   // Get all unique dates with meals
@@ -161,8 +194,15 @@ function App() {
   const handleSaveGoal = (e) => {
     e.preventDefault()
     const goal = Number(e.target.goal.value)
+    const protein = Number(e.target.protein.value) || null
+    const carbs = Number(e.target.carbs.value) || null
+    const fat = Number(e.target.fat.value) || null
+    
     if (goal > 0) {
       setDailyGoal(goal)
+      if (protein > 0) setProteinGoal(protein)
+      if (carbs > 0) setCarbsGoal(carbs)
+      if (fat > 0) setFatGoal(fat)
       setShowSettings(false)
     }
   }
@@ -244,7 +284,7 @@ function App() {
         <div className="settings-prompt">
           <p>Bitte setze dein tägliches Kalorienziel</p>
           <button className="settings-btn" onClick={() => setShowSettings(true)}>
-            Ziel setzen
+            Ziele setzen
           </button>
         </div>
       )}
@@ -255,39 +295,106 @@ function App() {
           <div className="calories-info">
             <h2 className="calories-number">{remaining.calories >= 0 ? remaining.calories : 0}</h2>
             <p className="calories-label">Calories left</p>
-            <button className="settings-link" onClick={() => setShowSettings(true)}>
-              Ziel: {dailyGoal} kcal
-            </button>
           </div>
           <div className="main-progress">
-            <svg width="140" height="140" viewBox="0 0 140 140">
+            <svg width="120" height="120" viewBox="0 0 120 120">
               <circle
-                cx="70"
-                cy="70"
-                r="60"
+                cx="60"
+                cy="60"
+                r="50"
                 fill="none"
                 stroke="#e5e5e5"
-                strokeWidth="10"
+                strokeWidth="8"
               />
               <circle
-                cx="70"
-                cy="70"
-                r="60"
+                cx="60"
+                cy="60"
+                r="50"
                 fill="none"
-                stroke={consumed.calories > dailyGoal ? "#ff3b30" : "#34c759"}
-                strokeWidth="10"
-                strokeDasharray={`${2 * Math.PI * 60}`}
-                strokeDashoffset={`${2 * Math.PI * 60 * (1 - Math.min(percentages.calories / 100, 1))}`}
+                stroke="#000"
+                strokeWidth="8"
+                strokeDasharray={`${2 * Math.PI * 50}`}
+                strokeDashoffset={`${2 * Math.PI * 50 * (1 - Math.min(percentages.calories / 100, 1))}`}
                 strokeLinecap="round"
-                transform="rotate(-90 70 70)"
+                transform="rotate(-90 60 60)"
               />
             </svg>
-            <div className="calories-center">
-              <span className="calories-consumed">{consumed.calories}</span>
-              <span className="calories-slash">/</span>
-              <span className="calories-goal">{dailyGoal}</span>
-            </div>
+            <div className="flame-icon">🔥</div>
           </div>
+        </div>
+      )}
+
+      {/* Macro Cards */}
+      {(proteinGoal || carbsGoal || fatGoal) && (
+        <div className="macro-cards">
+          {proteinGoal && (
+            <div className="macro-card">
+              <h3 className="macro-number">{remaining.protein >= 0 ? remaining.protein : 0}g</h3>
+              <p className="macro-label">Protein left</p>
+              <svg width="90" height="90" viewBox="0 0 90 90">
+                <circle cx="45" cy="45" r="38" fill="none" stroke="#e5e5e5" strokeWidth="6" />
+                <circle
+                  cx="45"
+                  cy="45"
+                  r="38"
+                  fill="none"
+                  stroke="#ff6b6b"
+                  strokeWidth="6"
+                  strokeDasharray={`${2 * Math.PI * 38}`}
+                  strokeDashoffset={`${2 * Math.PI * 38 * (1 - percentages.protein / 100)}`}
+                  strokeLinecap="round"
+                  transform="rotate(-90 45 45)"
+                />
+              </svg>
+              <div className="macro-icon protein">🍗</div>
+            </div>
+          )}
+
+          {carbsGoal && (
+            <div className="macro-card">
+              <h3 className="macro-number">{remaining.carbs >= 0 ? remaining.carbs : 0}g</h3>
+              <p className="macro-label">Carbs left</p>
+              <svg width="90" height="90" viewBox="0 0 90 90">
+                <circle cx="45" cy="45" r="38" fill="none" stroke="#e5e5e5" strokeWidth="6" />
+                <circle
+                  cx="45"
+                  cy="45"
+                  r="38"
+                  fill="none"
+                  stroke="#ffa500"
+                  strokeWidth="6"
+                  strokeDasharray={`${2 * Math.PI * 38}`}
+                  strokeDashoffset={`${2 * Math.PI * 38 * (1 - percentages.carbs / 100)}`}
+                  strokeLinecap="round"
+                  transform="rotate(-90 45 45)"
+                />
+              </svg>
+              <div className="macro-icon carbs">🌾</div>
+            </div>
+          )}
+
+          {fatGoal && (
+            <div className="macro-card">
+              <h3 className="macro-number">{remaining.fat >= 0 ? remaining.fat : 0}g</h3>
+              <p className="macro-label">Fat left</p>
+              <svg width="90" height="90" viewBox="0 0 90 90">
+                <circle cx="45" cy="45" r="38" fill="none" stroke="#e5e5e5" strokeWidth="6" />
+                <circle
+                  cx="45"
+                  cy="45"
+                  r="38"
+                  fill="none"
+                  stroke="#4a90e2"
+                  strokeWidth="6"
+                  strokeDasharray={`${2 * Math.PI * 38}`}
+                  strokeDashoffset={`${2 * Math.PI * 38 * (1 - percentages.fat / 100)}`}
+                  strokeLinecap="round"
+                  transform="rotate(-90 45 45)"
+                />
+              </svg>
+              <div className="macro-icon fat">🥑</div>
+            </div>
+          )}
         </div>
       )}
 
@@ -317,12 +424,12 @@ function App() {
                     <h3 className="meal-name">{meal.name}</h3>
                     <span className="meal-time">{meal.time}</span>
                   </div>
-                  <p className="meal-calories">{meal.calories} kcal</p>
+                  <p className="meal-calories">🔥 {meal.calories} calories</p>
                   {(meal.protein > 0 || meal.carbs > 0 || meal.fat > 0) && (
                     <div className="meal-macros">
-                      {meal.protein > 0 && <span>P: {meal.protein}g</span>}
-                      {meal.carbs > 0 && <span>K: {meal.carbs}g</span>}
-                      {meal.fat > 0 && <span>F: {meal.fat}g</span>}
+                      {meal.protein > 0 && <span className="macro-item protein-macro">🍗 {meal.protein}g</span>}
+                      {meal.carbs > 0 && <span className="macro-item carbs-macro">🌾 {meal.carbs}g</span>}
+                      {meal.fat > 0 && <span className="macro-item fat-macro">🥑 {meal.fat}g</span>}
                     </div>
                   )}
                 </div>
@@ -465,12 +572,12 @@ function App() {
         <div className="modal-overlay" onClick={() => setShowSettings(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h2>Tägliches Kalorienziel</h2>
+              <h2>Ziele setzen</h2>
               <button className="close-btn" onClick={() => setShowSettings(false)}>×</button>
             </div>
             <form onSubmit={handleSaveGoal}>
               <div className="form-group">
-                <label>Kalorien pro Tag</label>
+                <label>Kalorien pro Tag *</label>
                 <input
                   type="number"
                   name="goal"
@@ -478,7 +585,36 @@ function App() {
                   required
                   min="1"
                   placeholder="z.B. 2500"
-                  className="goal-input"
+                />
+              </div>
+              <div className="form-group">
+                <label>Protein (g)</label>
+                <input
+                  type="number"
+                  name="protein"
+                  defaultValue={proteinGoal || ''}
+                  min="0"
+                  placeholder="Optional"
+                />
+              </div>
+              <div className="form-group">
+                <label>Kohlenhydrate (g)</label>
+                <input
+                  type="number"
+                  name="carbs"
+                  defaultValue={carbsGoal || ''}
+                  min="0"
+                  placeholder="Optional"
+                />
+              </div>
+              <div className="form-group">
+                <label>Fett (g)</label>
+                <input
+                  type="number"
+                  name="fat"
+                  defaultValue={fatGoal || ''}
+                  min="0"
+                  placeholder="Optional"
                 />
               </div>
               <button type="submit" className="submit-btn">Speichern</button>
