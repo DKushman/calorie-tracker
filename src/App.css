@@ -175,7 +175,14 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flame-icon svg {
+  width: 28px;
+  height: 28px;
 }
 
 /* Macro Cards */
@@ -224,20 +231,15 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 24px;
   margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.macro-icon.protein {
-  filter: grayscale(0);
-}
-
-.macro-icon.carbs {
-  filter: grayscale(0);
-}
-
-.macro-icon.fat {
-  filter: grayscale(0);
+.macro-icon svg {
+  width: 18px;
+  height: 18px;
 }
 
 /* Quick Add Button */
@@ -332,8 +334,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
   background: #f5f5f7;
+}
+
+.meal-image-placeholder svg {
+  opacity: 0.3;
 }
 
 .meal-info {
@@ -364,6 +369,13 @@ body {
   font-weight: 500;
   color: #1d1d1f;
   margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.flame-icon-small {
+  flex-shrink: 0;
 }
 
 .meal-macros {
@@ -376,6 +388,10 @@ body {
   display: flex;
   align-items: center;
   gap: 4px;
+}
+
+.macro-item svg {
+  flex-shrink: 0;
 }
 
 .protein-macro {
@@ -543,24 +559,119 @@ body {
   font-weight: 400;
 }
 
-.file-input {
+/* Image Upload Styles */
+.image-upload-group {
+  margin-bottom: 24px;
+}
+
+.file-input-hidden {
+  display: none;
+}
+
+.image-upload-area {
+  display: block;
   cursor: pointer;
-  padding: 12px;
+  margin-top: 8px;
+}
+
+.upload-placeholder {
+  border: 2px dashed #d2d2d7;
+  border-radius: 16px;
+  padding: 40px 20px;
+  text-align: center;
+  background: #f5f5f7;
+  transition: all 0.2s ease;
+}
+
+.upload-placeholder:hover {
+  border-color: #007aff;
+  background: #f0f7ff;
+}
+
+.upload-placeholder svg {
+  color: #86868b;
+  margin-bottom: 12px;
+}
+
+.upload-placeholder p {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1d1d1f;
+  margin-bottom: 4px;
+}
+
+.upload-placeholder span {
+  font-size: 13px;
+  color: #86868b;
+}
+
+.image-preview-wrapper {
+  margin-top: 8px;
 }
 
 .image-preview {
-  margin-top: 16px;
-  border-radius: 12px;
+  position: relative;
+  border-radius: 16px;
   overflow: hidden;
-  max-width: 300px;
+  max-width: 100%;
   max-height: 300px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 12px;
 }
 
 .image-preview img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+}
+
+.remove-image-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  border: none;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.remove-image-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+
+.remove-image-btn:active {
+  transform: scale(0.95);
+}
+
+.change-image-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #f5f5f7;
+  color: #1d1d1f;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.change-image-btn:hover {
+  background: #e5e5e7;
+}
+
+.change-image-btn input {
+  display: none;
 }
 
 .form-row {

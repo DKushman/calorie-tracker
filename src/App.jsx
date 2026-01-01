@@ -319,7 +319,11 @@ function App() {
                 transform="rotate(-90 60 60)"
               />
             </svg>
-            <div className="flame-icon">🔥</div>
+            <div className="flame-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2C8 2 6 5 6 9C6 11.5 7 13.5 8.5 15C9.5 16 10 17 10 18C10 19.5 11.5 21 13.5 21C15.5 21 17 19.5 17 18C17 17 17.5 16 18.5 15C20 13.5 21 11.5 21 9C21 5 19 2 15 2C13 2 12.5 2.5 12 3C11.5 2.5 11 2 12 2Z" fill="#000"/>
+              </svg>
+            </div>
           </div>
         </div>
       )}
@@ -346,7 +350,12 @@ function App() {
                   transform="rotate(-90 45 45)"
                 />
               </svg>
-              <div className="macro-icon protein">🍗</div>
+              <div className="macro-icon protein">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 3L8 7H6C5.4 7 5 7.4 5 8V10C5 10.6 5.4 11 6 11H8L12 15V3Z" fill="#ff6b6b"/>
+                  <path d="M19 7L17 9H15C14.4 9 14 9.4 14 10V12C14 12.6 14.4 13 15 13H17L19 15V7Z" fill="#ff6b6b"/>
+                </svg>
+              </div>
             </div>
           )}
 
@@ -369,7 +378,12 @@ function App() {
                   transform="rotate(-90 45 45)"
                 />
               </svg>
-              <div className="macro-icon carbs">🌾</div>
+              <div className="macro-icon carbs">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="8" fill="#ffa500"/>
+                  <path d="M8 12L10.5 14.5L16 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
             </div>
           )}
 
@@ -392,7 +406,12 @@ function App() {
                   transform="rotate(-90 45 45)"
                 />
               </svg>
-              <div className="macro-icon fat">🥑</div>
+              <div className="macro-icon fat">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2C8 2 5 5 5 9C5 13 8 16 12 16C16 16 19 13 19 9C19 5 16 2 12 2Z" fill="#4a90e2"/>
+                  <path d="M12 6C9.8 6 8 7.8 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 7.8 14.2 6 12 6Z" fill="white" opacity="0.3"/>
+                </svg>
+              </div>
             </div>
           )}
         </div>
@@ -405,7 +424,7 @@ function App() {
 
       {/* Recently Logged Section */}
       <div className="recently-logged">
-        <h2 className="section-title">Geloggte Mahlzeiten</h2>
+        <h2 className="section-title">Recently logged</h2>
         {dayMeals.length === 0 ? (
           <p className="empty-state">Noch keine Mahlzeiten für diesen Tag geloggt</p>
         ) : (
@@ -416,7 +435,11 @@ function App() {
                   {meal.image ? (
                     <img src={meal.image} alt={meal.name} />
                   ) : (
-                    <div className="meal-image-placeholder">🍽️</div>
+                    <div className="meal-image-placeholder">
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 3H21V21H3V3ZM5 5V19H19V5H5ZM7 7H17V17H7V7Z" fill="#86868b"/>
+                      </svg>
+                    </div>
                   )}
                 </div>
                 <div className="meal-info">
@@ -424,12 +447,41 @@ function App() {
                     <h3 className="meal-name">{meal.name}</h3>
                     <span className="meal-time">{meal.time}</span>
                   </div>
-                  <p className="meal-calories">🔥 {meal.calories} calories</p>
+                  <p className="meal-calories">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="flame-icon-small">
+                      <path d="M12 2C8 2 6 5 6 9C6 11.5 7 13.5 8.5 15C9.5 16 10 17 10 18C10 19.5 11.5 21 13.5 21C15.5 21 17 19.5 17 18C17 17 17.5 16 18.5 15C20 13.5 21 11.5 21 9C21 5 19 2 15 2C13 2 12.5 2.5 12 3C11.5 2.5 11 2 12 2Z" fill="#000"/>
+                    </svg>
+                    {meal.calories} calories
+                  </p>
                   {(meal.protein > 0 || meal.carbs > 0 || meal.fat > 0) && (
                     <div className="meal-macros">
-                      {meal.protein > 0 && <span className="macro-item protein-macro">🍗 {meal.protein}g</span>}
-                      {meal.carbs > 0 && <span className="macro-item carbs-macro">🌾 {meal.carbs}g</span>}
-                      {meal.fat > 0 && <span className="macro-item fat-macro">🥑 {meal.fat}g</span>}
+                      {meal.protein > 0 && (
+                        <span className="macro-item protein-macro">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 3L8 7H6C5.4 7 5 7.4 5 8V10C5 10.6 5.4 11 6 11H8L12 15V3Z" fill="#ff6b6b"/>
+                            <path d="M19 7L17 9H15C14.4 9 14 9.4 14 10V12C14 12.6 14.4 13 15 13H17L19 15V7Z" fill="#ff6b6b"/>
+                          </svg>
+                          {meal.protein}g
+                        </span>
+                      )}
+                      {meal.carbs > 0 && (
+                        <span className="macro-item carbs-macro">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="8" fill="#ffa500"/>
+                            <path d="M8 12L10.5 14.5L16 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                          {meal.carbs}g
+                        </span>
+                      )}
+                      {meal.fat > 0 && (
+                        <span className="macro-item fat-macro">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 2C8 2 5 5 5 9C5 13 8 16 12 16C16 16 19 13 19 9C19 5 16 2 12 2Z" fill="#4a90e2"/>
+                            <path d="M12 6C9.8 6 8 7.8 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 7.8 14.2 6 12 6Z" fill="white" opacity="0.3"/>
+                          </svg>
+                          {meal.fat}g
+                        </span>
+                      )}
                     </div>
                   )}
                 </div>
@@ -449,17 +501,50 @@ function App() {
               <button className="close-btn" onClick={() => setShowAddModal(false)}>×</button>
             </div>
             <form onSubmit={handleAddMeal}>
-              <div className="form-group">
+              <div className="form-group image-upload-group">
                 <label>Bild hochladen</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  className="file-input"
-                />
-                {mealForm.imagePreview && (
-                  <div className="image-preview">
-                    <img src={mealForm.imagePreview} alt="Preview" />
+                {!mealForm.imagePreview ? (
+                  <label className="image-upload-area">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      className="file-input-hidden"
+                    />
+                    <div className="upload-placeholder">
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="17 8 12 3 7 8"/>
+                        <line x1="12" y1="3" x2="12" y2="15"/>
+                      </svg>
+                      <p>Bild auswählen</p>
+                      <span>oder hier ablegen</span>
+                    </div>
+                  </label>
+                ) : (
+                  <div className="image-preview-wrapper">
+                    <div className="image-preview">
+                      <img src={mealForm.imagePreview} alt="Preview" />
+                      <button
+                        type="button"
+                        className="remove-image-btn"
+                        onClick={() => setMealForm({ ...mealForm, image: null, imagePreview: null })}
+                      >
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <line x1="18" y1="6" x2="6" y2="18"/>
+                          <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                      </button>
+                    </div>
+                    <label className="change-image-btn">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="file-input-hidden"
+                      />
+                      Bild ändern
+                    </label>
                   </div>
                 )}
               </div>
