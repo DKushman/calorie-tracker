@@ -333,7 +333,7 @@ function App() {
             <div className="macro-card-main protein-card">
               <div className="macro-info">
                 <h2 className="macro-number-main">{proteinGoal ? (remaining.protein >= 0 ? remaining.protein : 0) : consumed.protein}g</h2>
-                <p className="macro-label-main">Protein left</p>
+                <p className="macro-label-main">Protein</p>
               </div>
               <div className="macro-progress">
                 <svg className="macro-svg" viewBox="0 0 90 90">
@@ -372,7 +372,7 @@ function App() {
             <div className="macro-card-main carbs-card">
               <div className="macro-info">
                 <h2 className="macro-number-main">{carbsGoal ? (remaining.carbs >= 0 ? remaining.carbs : 0) : consumed.carbs}g</h2>
-                <p className="macro-label-main">Carbs left</p>
+                <p className="macro-label-main">Carbs</p>
               </div>
               <div className="macro-progress">
                 <svg className="macro-svg" viewBox="0 0 90 90">
@@ -411,7 +411,7 @@ function App() {
             <div className="macro-card-main fat-card">
               <div className="macro-info">
                 <h2 className="macro-number-main">{fatGoal ? (remaining.fat >= 0 ? remaining.fat : 0) : consumed.fat}g</h2>
-                <p className="macro-label-main">Fat left</p>
+                <p className="macro-label-main">Fat</p>
               </div>
               <div className="macro-progress">
                 <svg className="macro-svg" viewBox="0 0 90 90">
