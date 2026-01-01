@@ -936,11 +936,15 @@ body {
   }
 
   .main-card {
-    flex-direction: column;
-    text-align: center;
+    flex-direction: row;
+    text-align: left;
     gap: 20px;
     padding: 24px;
     margin-bottom: 16px;
+  }
+
+  .calories-info {
+    text-align: left;
   }
 
   .calories-number {
