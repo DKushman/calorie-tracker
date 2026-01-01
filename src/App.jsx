@@ -15,6 +15,7 @@ function App() {
   const [showSettings, setShowSettings] = useState(false)
   const [quickCalories, setQuickCalories] = useState(0)
   const [isInitialized, setIsInitialized] = useState(false)
+  const [calendarMonth, setCalendarMonth] = useState(new Date())
   
   // Meal Form State
   const [mealForm, setMealForm] = useState({
@@ -351,12 +352,19 @@ function App() {
   const generateCalendarDays = () => {
     const today = new Date()
     const days = []
-    const datesWithMeals = getDatesWithMeals()
+    const year = calendarMonth.getFullYear()
+    const month = calendarMonth.getMonth()
     
-    // Get last 30 days
-    for (let i = 29; i >= 0; i--) {
-      const date = new Date(today)
-      date.setDate(date.getDate() - i)
+    // Get first day of month and how many days to show from previous month
+    const firstDay = new Date(year, month, 1)
+    const lastDay = new Date(year, month + 1, 0)
+    const startDate = new Date(firstDay)
+    startDate.setDate(startDate.getDate() - firstDay.getDay()) // Start from Sunday
+    
+    // Generate 42 days (6 weeks)
+    for (let i = 0; i < 42; i++) {
+      const date = new Date(startDate)
+      date.setDate(startDate.getDate() + i)
       const dateStr = formatDate(date)
       const calories = getDateCalories(dateStr)
       const status = getDateStatus(dateStr)
@@ -367,11 +375,20 @@ function App() {
         calories,
         status,
         isToday: formatDate(date) === formatDate(today),
-        isSelected: formatDate(date) === selectedDateStr
+        isSelected: formatDate(date) === selectedDateStr,
+        isCurrentMonth: date.getMonth() === month
       })
     }
     
     return days
+  }
+
+  const navigateMonth = (direction) => {
+    setCalendarMonth(prev => {
+      const newDate = new Date(prev)
+      newDate.setMonth(prev.getMonth() + direction)
+      return newDate
+    })
   }
 
   // Reset Form
@@ -876,18 +893,42 @@ function App() {
         <div className="modal-overlay" onClick={() => setShowCalendar(false)}>
           <div className="modal calendar-modal" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h2>Kalender</h2>
+              <div className="calendar-header-nav">
+                <button className="calendar-nav-btn" onClick={() => navigateMonth(-1)}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                </button>
+                <h2 className="calendar-month-title">
+                  {calendarMonth.toLocaleDateString('de-DE', { month: 'long', year: 'numeric' })}
+                </h2>
+                <button className="calendar-nav-btn" onClick={() => navigateMonth(1)}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </button>
+              </div>
               <button className="close-btn" onClick={() => setShowCalendar(false)}>×</button>
+            </div>
+            <div className="calendar-weekdays">
+              <span>So</span>
+              <span>Mo</span>
+              <span>Di</span>
+              <span>Mi</span>
+              <span>Do</span>
+              <span>Fr</span>
+              <span>Sa</span>
             </div>
             <div className="calendar-grid">
               {generateCalendarDays().map((day, idx) => (
                 <button
                   key={idx}
-                  className={`calendar-day ${day.isSelected ? 'selected' : ''} ${day.status || ''}`}
+                  className={`calendar-day ${day.isSelected ? 'selected' : ''} ${day.status || ''} ${!day.isCurrentMonth ? 'other-month' : ''} ${day.isToday ? 'today' : ''}`}
                   onClick={() => {
                     setSelectedDate(day.date)
                     setShowCalendar(false)
                   }}
+                  disabled={!day.isCurrentMonth}
                 >
                   <span className="day-number">{day.date.getDate()}</span>
                   {day.calories > 0 && (
@@ -897,6 +938,20 @@ function App() {
                   )}
                 </button>
               ))}
+            </div>
+            <div className="calendar-legend">
+              <div className="legend-item">
+                <div className="legend-color under"></div>
+                <span>Im Ziel</span>
+              </div>
+              <div className="legend-item">
+                <div className="legend-color over"></div>
+                <span>Über Ziel</span>
+              </div>
+              <div className="legend-item">
+                <div className="legend-color today"></div>
+                <span>Heute</span>
+              </div>
             </div>
           </div>
         </div>

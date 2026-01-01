@@ -877,10 +877,62 @@ body {
   max-width: 600px;
 }
 
+.calendar-header-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex: 1;
+}
+
+.calendar-nav-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  border: none;
+  background: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  color: #1d1d1f;
+}
+
+.calendar-nav-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+}
+
+.calendar-month-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1d1d1f;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 8px;
+  padding: 0 4px;
+}
+
+.calendar-weekdays span {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #86868b;
+  padding: 8px 0;
+}
+
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 8px;
+  margin-bottom: 20px;
 }
 
 .calendar-day {
@@ -894,17 +946,38 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 8px;
+  padding: 6px;
   position: relative;
   font-family: inherit;
+  min-height: 48px;
 }
 
-.calendar-day:hover {
+.calendar-day:hover:not(:disabled) {
   background: #e5e5e7;
   transform: scale(1.05);
 }
 
+.calendar-day:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.calendar-day.other-month {
+  opacity: 0.3;
+}
+
+.calendar-day.today {
+  border: 2px solid #007aff;
+  background: #f0f7ff;
+}
+
 .calendar-day.selected {
+  background: #007aff;
+  color: white;
+  border: 2px solid #007aff;
+}
+
+.calendar-day.selected.today {
   background: #007aff;
   color: white;
 }
@@ -919,22 +992,65 @@ body {
   color: white;
 }
 
+.calendar-day.over.selected,
+.calendar-day.under.selected {
+  background: #007aff;
+  color: white;
+}
+
 .day-number {
   font-size: 15px;
   font-weight: 500;
+  line-height: 1.2;
 }
 
 .day-calories {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   margin-top: 2px;
   opacity: 0.9;
+  line-height: 1;
 }
 
 .calendar-day.selected .day-calories,
 .calendar-day.over .day-calories,
 .calendar-day.under .day-calories {
   color: white;
+}
+
+.calendar-legend {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e5e7;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #86868b;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+.legend-color.under {
+  background: #34c759;
+}
+
+.legend-color.over {
+  background: #ff3b30;
+}
+
+.legend-color.today {
+  background: #007aff;
 }
 
 /* Responsive Design */
