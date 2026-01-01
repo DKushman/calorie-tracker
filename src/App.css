@@ -178,11 +178,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 28px;
+  height: 28px;
 }
 
 .flame-icon svg {
-  width: 28px;
-  height: 28px;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 /* Macro Cards - Main Cards (similar to calories card but smaller, horizontal) */
