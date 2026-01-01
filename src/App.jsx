@@ -320,21 +320,12 @@ function App() {
                   transform="rotate(-90 60 60)"
                 />
               </svg>
-              <div className="flame-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2C8 2 6 5 6 9C6 11.5 7 13.5 8.5 15C9.5 16 10 17 10 18C10 19.5 11.5 21 13.5 21C15.5 21 17 19.5 17 18C17 17 17.5 16 18.5 15C20 13.5 21 11.5 21 9C21 5 19 2 15 2C13 2 12.5 2.5 12 3C11.5 2.5 11 2 12 2Z" fill="#000"/>
-                </svg>
-              </div>
             </div>
           </div>
 
           {/* Macro Cards - Show consumed amounts only */}
           <div className="macro-cards-main">
             <div className="macro-card-main protein-card">
-              <div className="macro-info">
-                <h2 className="macro-number-main">{consumed.protein}g</h2>
-                <p className="macro-label-main">Protein</p>
-              </div>
               <div className="macro-progress">
                 <svg className="macro-svg" viewBox="0 0 80 80">
                   <circle
@@ -346,14 +337,14 @@ function App() {
                     strokeWidth="6"
                   />
                 </svg>
+                <div className="macro-text-in-circle">
+                  <h2 className="macro-number-in-circle">{consumed.protein}g</h2>
+                  <p className="macro-label-in-circle">Protein</p>
+                </div>
               </div>
             </div>
 
             <div className="macro-card-main carbs-card">
-              <div className="macro-info">
-                <h2 className="macro-number-main">{consumed.carbs}g</h2>
-                <p className="macro-label-main">Carbs</p>
-              </div>
               <div className="macro-progress">
                 <svg className="macro-svg" viewBox="0 0 80 80">
                   <circle
@@ -365,14 +356,14 @@ function App() {
                     strokeWidth="6"
                   />
                 </svg>
+                <div className="macro-text-in-circle">
+                  <h2 className="macro-number-in-circle">{consumed.carbs}g</h2>
+                  <p className="macro-label-in-circle">Carbs</p>
+                </div>
               </div>
             </div>
 
             <div className="macro-card-main fat-card">
-              <div className="macro-info">
-                <h2 className="macro-number-main">{consumed.fat}g</h2>
-                <p className="macro-label-main">Fat</p>
-              </div>
               <div className="macro-progress">
                 <svg className="macro-svg" viewBox="0 0 80 80">
                   <circle
@@ -384,6 +375,10 @@ function App() {
                     strokeWidth="6"
                   />
                 </svg>
+                <div className="macro-text-in-circle">
+                  <h2 className="macro-number-in-circle">{consumed.fat}g</h2>
+                  <p className="macro-label-in-circle">Fat</p>
+                </div>
               </div>
             </div>
           </div>
@@ -421,37 +416,22 @@ function App() {
                     <span className="meal-time">{meal.time}</span>
                   </div>
                   <p className="meal-calories">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="flame-icon-small">
-                      <path d="M12 2C8 2 6 5 6 9C6 11.5 7 13.5 8.5 15C9.5 16 10 17 10 18C10 19.5 11.5 21 13.5 21C15.5 21 17 19.5 17 18C17 17 17.5 16 18.5 15C20 13.5 21 11.5 21 9C21 5 19 2 15 2C13 2 12.5 2.5 12 3C11.5 2.5 11 2 12 2Z" fill="#000"/>
-                    </svg>
                     {meal.calories} calories
                   </p>
                   {(meal.protein > 0 || meal.carbs > 0 || meal.fat > 0) && (
                     <div className="meal-macros">
                       {meal.protein > 0 && (
                         <span className="macro-item protein-macro">
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 3L8 7H6C5.4 7 5 7.4 5 8V10C5 10.6 5.4 11 6 11H8L12 15V3Z" fill="#ff6b6b"/>
-                            <path d="M19 7L17 9H15C14.4 9 14 9.4 14 10V12C14 12.6 14.4 13 15 13H17L19 15V7Z" fill="#ff6b6b"/>
-                          </svg>
                           {meal.protein}g
                         </span>
                       )}
                       {meal.carbs > 0 && (
                         <span className="macro-item carbs-macro">
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-                            <circle cx="12" cy="12" r="8" fill="#ffa500"/>
-                            <path d="M8 12L10.5 14.5L16 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
                           {meal.carbs}g
                         </span>
                       )}
                       {meal.fat > 0 && (
                         <span className="macro-item fat-macro">
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 2C8 2 5 5 5 9C5 13 8 16 12 16C16 16 19 13 19 9C19 5 16 2 12 2Z" fill="#4a90e2"/>
-                            <path d="M12 6C9.8 6 8 7.8 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 7.8 14.2 6 12 6Z" fill="white" opacity="0.3"/>
-                          </svg>
                           {meal.fat}g
                         </span>
                       )}
