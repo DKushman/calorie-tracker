@@ -14,6 +14,7 @@ function App() {
   const [showCalendar, setShowCalendar] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [quickCalories, setQuickCalories] = useState(0)
+  const [isInitialized, setIsInitialized] = useState(false)
   
   // Meal Form State
   const [mealForm, setMealForm] = useState({
@@ -88,16 +89,22 @@ function App() {
           setSelectedDate(date)
         }
       }
+      
+      setIsInitialized(true)
     } catch (error) {
       console.error('Error loading from localStorage:', error)
+      setIsInitialized(true)
     }
   }, [])
 
   // Save to localStorage - save immediately when meals change
   useEffect(() => {
+    if (!isInitialized) return // Don't save until data is loaded
+    
     try {
       const mealsJson = JSON.stringify(meals)
       localStorage.setItem('calorieTrackerMeals', mealsJson)
+      console.log('✅ Meals saved:', meals.length, 'items')
     } catch (error) {
       console.error('Error saving meals to localStorage:', error)
       // If storage is full, try to compress or remove old data
@@ -105,55 +112,70 @@ function App() {
         alert('Speicher voll! Bitte lösche einige alte Mahlzeiten.')
       }
     }
-  }, [meals])
+  }, [meals, isInitialized])
 
   useEffect(() => {
+    if (!isInitialized) return // Don't save until data is loaded
+    
     if (dailyGoal !== null) {
       try {
         localStorage.setItem('calorieTrackerGoal', dailyGoal.toString())
+        console.log('✅ Daily goal saved:', dailyGoal)
       } catch (error) {
         console.error('Error saving goal to localStorage:', error)
       }
     }
-  }, [dailyGoal])
+  }, [dailyGoal, isInitialized])
 
   useEffect(() => {
+    if (!isInitialized) return // Don't save until data is loaded
+    
     if (proteinGoal !== null) {
       try {
         localStorage.setItem('calorieTrackerProteinGoal', proteinGoal.toString())
+        console.log('✅ Protein goal saved:', proteinGoal)
       } catch (error) {
         console.error('Error saving protein goal to localStorage:', error)
       }
     }
-  }, [proteinGoal])
+  }, [proteinGoal, isInitialized])
 
   useEffect(() => {
+    if (!isInitialized) return // Don't save until data is loaded
+    
     if (carbsGoal !== null) {
       try {
         localStorage.setItem('calorieTrackerCarbsGoal', carbsGoal.toString())
+        console.log('✅ Carbs goal saved:', carbsGoal)
       } catch (error) {
         console.error('Error saving carbs goal to localStorage:', error)
       }
     }
-  }, [carbsGoal])
+  }, [carbsGoal, isInitialized])
 
   useEffect(() => {
+    if (!isInitialized) return // Don't save until data is loaded
+    
     if (fatGoal !== null) {
       try {
         localStorage.setItem('calorieTrackerFatGoal', fatGoal.toString())
+        console.log('✅ Fat goal saved:', fatGoal)
       } catch (error) {
         console.error('Error saving fat goal to localStorage:', error)
       }
     }
-  }, [fatGoal])
+  }, [fatGoal, isInitialized])
 
   useEffect(() => {
+    if (!isInitialized) return // Don't save until data is loaded
+    
     try {
       localStorage.setItem('calorieTrackerSelectedDate', selectedDate.toISOString())
+      console.log('✅ Selected date saved:', selectedDate.toISOString())
     } catch (error) {
       console.error('Error saving selected date to localStorage:', error)
     }
-  }, [selectedDate])
+  }, [selectedDate, isInitialized])
 
   // Get meals for selected date
   const selectedDateStr = formatDate(selectedDate)
