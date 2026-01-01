@@ -291,163 +291,163 @@ function App() {
 
       {/* Main Calories Card */}
       {dailyGoal && (
-        <div className="main-card">
-          <div className="calories-info">
-            <h2 className="calories-number">{remaining.calories >= 0 ? remaining.calories : 0}</h2>
-            <p className="calories-label">Calories left</p>
-          </div>
-          <div className="main-progress">
-            <svg width="120" height="120" viewBox="0 0 120 120">
-              <circle
-                cx="60"
-                cy="60"
-                r="50"
-                fill="none"
-                stroke="#e5e5e5"
-                strokeWidth="8"
-              />
-              <circle
-                cx="60"
-                cy="60"
-                r="50"
-                fill="none"
-                stroke="#000"
-                strokeWidth="8"
-                strokeDasharray={`${2 * Math.PI * 50}`}
-                strokeDashoffset={`${2 * Math.PI * 50 * (1 - Math.min(percentages.calories / 100, 1))}`}
-                strokeLinecap="round"
-                transform="rotate(-90 60 60)"
-              />
-            </svg>
-            <div className="flame-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2C8 2 6 5 6 9C6 11.5 7 13.5 8.5 15C9.5 16 10 17 10 18C10 19.5 11.5 21 13.5 21C15.5 21 17 19.5 17 18C17 17 17.5 16 18.5 15C20 13.5 21 11.5 21 9C21 5 19 2 15 2C13 2 12.5 2.5 12 3C11.5 2.5 11 2 12 2Z" fill="#000"/>
+        <>
+          <div className="main-card">
+            <div className="calories-info">
+              <h2 className="calories-number">{remaining.calories >= 0 ? remaining.calories : 0}</h2>
+              <p className="calories-label">Calories left</p>
+            </div>
+            <div className="main-progress">
+              <svg width="120" height="120" viewBox="0 0 120 120">
+                <circle
+                  cx="60"
+                  cy="60"
+                  r="50"
+                  fill="none"
+                  stroke="#e5e5e5"
+                  strokeWidth="8"
+                />
+                <circle
+                  cx="60"
+                  cy="60"
+                  r="50"
+                  fill="none"
+                  stroke="#000"
+                  strokeWidth="8"
+                  strokeDasharray={`${2 * Math.PI * 50}`}
+                  strokeDashoffset={`${2 * Math.PI * 50 * (1 - Math.min(percentages.calories / 100, 1))}`}
+                  strokeLinecap="round"
+                  transform="rotate(-90 60 60)"
+                />
               </svg>
+              <div className="flame-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2C8 2 6 5 6 9C6 11.5 7 13.5 8.5 15C9.5 16 10 17 10 18C10 19.5 11.5 21 13.5 21C15.5 21 17 19.5 17 18C17 17 17.5 16 18.5 15C20 13.5 21 11.5 21 9C21 5 19 2 15 2C13 2 12.5 2.5 12 3C11.5 2.5 11 2 12 2Z" fill="#000"/>
+                </svg>
+              </div>
             </div>
           </div>
-        </div>
-      )}
 
-      {/* Macro Cards - Similar to Calories Card but smaller */}
-      {(proteinGoal || carbsGoal || fatGoal) && (
-        <div className="macro-cards-main">
-          {proteinGoal && (
+          {/* Macro Cards - Similar to Calories Card but smaller */}
+          <div className="macro-cards-main">
             <div className="macro-card-main protein-card">
               <div className="macro-info">
-                <h2 className="macro-number-main">{remaining.protein >= 0 ? remaining.protein : 0}g</h2>
+                <h2 className="macro-number-main">{proteinGoal ? (remaining.protein >= 0 ? remaining.protein : 0) : '-'}g</h2>
                 <p className="macro-label-main">Protein left</p>
               </div>
               <div className="macro-progress">
-                <svg width="90" height="90" viewBox="0 0 90 90">
+                <svg width="80" height="80" viewBox="0 0 80 80">
                   <circle
-                    cx="45"
-                    cy="45"
-                    r="38"
+                    cx="40"
+                    cy="40"
+                    r="34"
                     fill="none"
                     stroke="#e5e5e5"
                     strokeWidth="6"
                   />
-                  <circle
-                    cx="45"
-                    cy="45"
-                    r="38"
-                    fill="none"
-                    stroke="#ff6b6b"
-                    strokeWidth="6"
-                    strokeDasharray={`${2 * Math.PI * 38}`}
-                    strokeDashoffset={`${2 * Math.PI * 38 * (1 - Math.min(percentages.protein / 100, 1))}`}
-                    strokeLinecap="round"
-                    transform="rotate(-90 45 45)"
-                  />
+                  {proteinGoal && (
+                    <circle
+                      cx="40"
+                      cy="40"
+                      r="34"
+                      fill="none"
+                      stroke="#ff6b6b"
+                      strokeWidth="6"
+                      strokeDasharray={`${2 * Math.PI * 34}`}
+                      strokeDashoffset={`${2 * Math.PI * 34 * (1 - Math.min(percentages.protein / 100, 1))}`}
+                      strokeLinecap="round"
+                      transform="rotate(-90 40 40)"
+                    />
+                  )}
                 </svg>
                 <div className="macro-icon-center protein">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                     <path d="M12 4L9 7H7C6.4 7 6 7.4 6 8V10C6 10.6 6.4 11 7 11H9L12 14V4Z" fill="#ff6b6b"/>
                     <path d="M18 8L16 10H14C13.4 10 13 10.4 13 11V13C13 13.6 13.4 14 14 14H16L18 16V8Z" fill="#ff6b6b"/>
                   </svg>
                 </div>
               </div>
             </div>
-          )}
 
-          {carbsGoal && (
             <div className="macro-card-main carbs-card">
               <div className="macro-info">
-                <h2 className="macro-number-main">{remaining.carbs >= 0 ? remaining.carbs : 0}g</h2>
+                <h2 className="macro-number-main">{carbsGoal ? (remaining.carbs >= 0 ? remaining.carbs : 0) : '-'}g</h2>
                 <p className="macro-label-main">Carbs left</p>
               </div>
               <div className="macro-progress">
-                <svg width="90" height="90" viewBox="0 0 90 90">
+                <svg width="80" height="80" viewBox="0 0 80 80">
                   <circle
-                    cx="45"
-                    cy="45"
-                    r="38"
+                    cx="40"
+                    cy="40"
+                    r="34"
                     fill="none"
                     stroke="#e5e5e5"
                     strokeWidth="6"
                   />
-                  <circle
-                    cx="45"
-                    cy="45"
-                    r="38"
-                    fill="none"
-                    stroke="#ffa500"
-                    strokeWidth="6"
-                    strokeDasharray={`${2 * Math.PI * 38}`}
-                    strokeDashoffset={`${2 * Math.PI * 38 * (1 - Math.min(percentages.carbs / 100, 1))}`}
-                    strokeLinecap="round"
-                    transform="rotate(-90 45 45)"
-                  />
+                  {carbsGoal && (
+                    <circle
+                      cx="40"
+                      cy="40"
+                      r="34"
+                      fill="none"
+                      stroke="#ffa500"
+                      strokeWidth="6"
+                      strokeDasharray={`${2 * Math.PI * 34}`}
+                      strokeDashoffset={`${2 * Math.PI * 34 * (1 - Math.min(percentages.carbs / 100, 1))}`}
+                      strokeLinecap="round"
+                      transform="rotate(-90 40 40)"
+                    />
+                  )}
                 </svg>
                 <div className="macro-icon-center carbs">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                     <circle cx="12" cy="12" r="8" fill="#ffa500"/>
                     <path d="M8 12L10.5 14.5L16 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
               </div>
             </div>
-          )}
 
-          {fatGoal && (
             <div className="macro-card-main fat-card">
               <div className="macro-info">
-                <h2 className="macro-number-main">{remaining.fat >= 0 ? remaining.fat : 0}g</h2>
+                <h2 className="macro-number-main">{fatGoal ? (remaining.fat >= 0 ? remaining.fat : 0) : '-'}g</h2>
                 <p className="macro-label-main">Fat left</p>
               </div>
               <div className="macro-progress">
-                <svg width="90" height="90" viewBox="0 0 90 90">
+                <svg width="80" height="80" viewBox="0 0 80 80">
                   <circle
-                    cx="45"
-                    cy="45"
-                    r="38"
+                    cx="40"
+                    cy="40"
+                    r="34"
                     fill="none"
                     stroke="#e5e5e5"
                     strokeWidth="6"
                   />
-                  <circle
-                    cx="45"
-                    cy="45"
-                    r="38"
-                    fill="none"
-                    stroke="#4a90e2"
-                    strokeWidth="6"
-                    strokeDasharray={`${2 * Math.PI * 38}`}
-                    strokeDashoffset={`${2 * Math.PI * 38 * (1 - Math.min(percentages.fat / 100, 1))}`}
-                    strokeLinecap="round"
-                    transform="rotate(-90 45 45)"
-                  />
+                  {fatGoal && (
+                    <circle
+                      cx="40"
+                      cy="40"
+                      r="34"
+                      fill="none"
+                      stroke="#4a90e2"
+                      strokeWidth="6"
+                      strokeDasharray={`${2 * Math.PI * 34}`}
+                      strokeDashoffset={`${2 * Math.PI * 34 * (1 - Math.min(percentages.fat / 100, 1))}`}
+                      strokeLinecap="round"
+                      transform="rotate(-90 40 40)"
+                    />
+                  )}
                 </svg>
                 <div className="macro-icon-center fat">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                     <path d="M12 2C8 2 5 5 5 9C5 13 8 16 12 16C16 16 19 13 19 9C19 5 16 2 12 2Z" fill="#4a90e2"/>
                     <path d="M12 6C9.8 6 8 7.8 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 7.8 14.2 6 12 6Z" fill="white" opacity="0.3"/>
                   </svg>
                 </div>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        </>
       )}
 
       {/* Quick Add Button */}
