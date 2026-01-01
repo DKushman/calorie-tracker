@@ -185,7 +185,66 @@ body {
   height: 28px;
 }
 
-/* Macro Cards */
+/* Macro Cards - Main Cards (similar to calories card) */
+.macro-cards-main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.macro-card-main {
+  background: white;
+  border-radius: 20px;
+  padding: 24px 28px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.macro-info {
+  flex: 1;
+}
+
+.macro-number-main {
+  font-size: 40px;
+  font-weight: 700;
+  color: #1d1d1f;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+.macro-label-main {
+  font-size: 15px;
+  color: #86868b;
+  font-weight: 400;
+}
+
+.macro-progress {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+}
+
+.macro-icon-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.macro-icon-center svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Old macro cards (keeping for compatibility) */
 .macro-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -881,6 +940,24 @@ body {
 
   .flame-icon {
     font-size: 28px;
+  }
+
+  .macro-card-main {
+    padding: 20px 24px;
+  }
+
+  .macro-number-main {
+    font-size: 36px;
+  }
+
+  .macro-progress {
+    width: 80px;
+    height: 80px;
+  }
+
+  .macro-progress svg {
+    width: 80px;
+    height: 80px;
   }
 
   .macro-cards {
