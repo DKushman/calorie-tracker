@@ -196,22 +196,27 @@ body {
 .macro-card-main {
   background: white;
   border-radius: 16px;
-  padding: 20px 16px;
+  padding: 18px 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   position: relative;
+  min-height: 140px;
 }
 
 .macro-info {
   width: 100%;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .macro-number-main {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
   color: #1d1d1f;
   margin-bottom: 4px;
@@ -220,21 +225,22 @@ body {
 }
 
 .macro-label-main {
-  font-size: 12px;
+  font-size: 11px;
   color: #86868b;
   font-weight: 400;
 }
 
 .macro-progress {
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   margin: 0 auto;
+  flex-shrink: 0;
 }
 
-.macro-progress svg {
-  width: 80px;
-  height: 80px;
+.macro-svg {
+  width: 70px;
+  height: 70px;
 }
 
 .macro-icon-center {
@@ -247,9 +253,9 @@ body {
   justify-content: center;
 }
 
-.macro-icon-center svg {
-  width: 16px;
-  height: 16px;
+.macro-icon-svg {
+  width: 14px;
+  height: 14px;
 }
 
 /* Old macro cards (keeping for compatibility) */
@@ -950,36 +956,47 @@ body {
     font-size: 28px;
   }
 
+  .main-card {
+    margin-bottom: 16px;
+  }
+
   .macro-cards-main {
-    grid-template-columns: 1fr;
-    gap: 12px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
   }
 
   .macro-card-main {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 16px;
-    text-align: left;
+    padding: 14px 8px;
+    min-height: 120px;
   }
 
   .macro-info {
-    margin-bottom: 0;
-    flex: 1;
+    margin-bottom: 8px;
   }
 
   .macro-number-main {
-    font-size: 20px;
+    font-size: 18px;
+  }
+
+  .macro-label-main {
+    font-size: 10px;
   }
 
   .macro-progress {
-    width: 70px;
-    height: 70px;
-    margin: 0;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
   }
 
-  .macro-progress svg {
-    width: 70px;
-    height: 70px;
+  .macro-svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  .macro-icon-svg {
+    width: 12px;
+    height: 12px;
   }
 
   .macro-cards {

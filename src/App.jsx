@@ -332,11 +332,11 @@ function App() {
           <div className="macro-cards-main">
             <div className="macro-card-main protein-card">
               <div className="macro-info">
-                <h2 className="macro-number-main">{proteinGoal ? (remaining.protein >= 0 ? remaining.protein : 0) : '-'}g</h2>
+                <h2 className="macro-number-main">{proteinGoal ? (remaining.protein >= 0 ? remaining.protein : 0) : consumed.protein}g</h2>
                 <p className="macro-label-main">Protein left</p>
               </div>
               <div className="macro-progress">
-                <svg width="80" height="80" viewBox="0 0 80 80">
+                <svg className="macro-svg" viewBox="0 0 80 80">
                   <circle
                     cx="40"
                     cy="40"
@@ -361,7 +361,7 @@ function App() {
                   )}
                 </svg>
                 <div className="macro-icon-center protein">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <svg className="macro-icon-svg" viewBox="0 0 24 24" fill="none">
                     <path d="M12 4L9 7H7C6.4 7 6 7.4 6 8V10C6 10.6 6.4 11 7 11H9L12 14V4Z" fill="#ff6b6b"/>
                     <path d="M18 8L16 10H14C13.4 10 13 10.4 13 11V13C13 13.6 13.4 14 14 14H16L18 16V8Z" fill="#ff6b6b"/>
                   </svg>
@@ -371,11 +371,11 @@ function App() {
 
             <div className="macro-card-main carbs-card">
               <div className="macro-info">
-                <h2 className="macro-number-main">{carbsGoal ? (remaining.carbs >= 0 ? remaining.carbs : 0) : '-'}g</h2>
+                <h2 className="macro-number-main">{carbsGoal ? (remaining.carbs >= 0 ? remaining.carbs : 0) : consumed.carbs}g</h2>
                 <p className="macro-label-main">Carbs left</p>
               </div>
               <div className="macro-progress">
-                <svg width="80" height="80" viewBox="0 0 80 80">
+                <svg className="macro-svg" viewBox="0 0 80 80">
                   <circle
                     cx="40"
                     cy="40"
@@ -400,7 +400,7 @@ function App() {
                   )}
                 </svg>
                 <div className="macro-icon-center carbs">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <svg className="macro-icon-svg" viewBox="0 0 24 24" fill="none">
                     <circle cx="12" cy="12" r="8" fill="#ffa500"/>
                     <path d="M8 12L10.5 14.5L16 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
@@ -410,11 +410,11 @@ function App() {
 
             <div className="macro-card-main fat-card">
               <div className="macro-info">
-                <h2 className="macro-number-main">{fatGoal ? (remaining.fat >= 0 ? remaining.fat : 0) : '-'}g</h2>
+                <h2 className="macro-number-main">{fatGoal ? (remaining.fat >= 0 ? remaining.fat : 0) : consumed.fat}g</h2>
                 <p className="macro-label-main">Fat left</p>
               </div>
               <div className="macro-progress">
-                <svg width="80" height="80" viewBox="0 0 80 80">
+                <svg className="macro-svg" viewBox="0 0 80 80">
                   <circle
                     cx="40"
                     cy="40"
@@ -439,7 +439,7 @@ function App() {
                   )}
                 </svg>
                 <div className="macro-icon-center fat">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <svg className="macro-icon-svg" viewBox="0 0 24 24" fill="none">
                     <path d="M12 2C8 2 5 5 5 9C5 13 8 16 12 16C16 16 19 13 19 9C19 5 16 2 12 2Z" fill="#4a90e2"/>
                     <path d="M12 6C9.8 6 8 7.8 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 7.8 14.2 6 12 6Z" fill="white" opacity="0.3"/>
                   </svg>
