@@ -342,26 +342,24 @@ function App() {
                     cy="50"
                     r="42"
                     fill="none"
-                    stroke="#e5e5e5"
+                    stroke="#f0f0f0"
                     strokeWidth="8"
                   />
-                  {proteinGoal && (
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="42"
-                      fill="none"
-                      stroke="#ff6b6b"
-                      strokeWidth="8"
-                      strokeDasharray={`${2 * Math.PI * 42}`}
-                      strokeDashoffset={`${2 * Math.PI * 42 * (1 - Math.min(percentages.protein / 100, 1))}`}
-                      strokeLinecap="round"
-                      transform="rotate(-90 50 50)"
-                    />
-                  )}
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="42"
+                    fill="none"
+                    stroke="#ff6b6b"
+                    strokeWidth="8"
+                    strokeDasharray={`${2 * Math.PI * 42}`}
+                    strokeDashoffset={proteinGoal ? `${2 * Math.PI * 42 * (1 - Math.min(percentages.protein / 100, 1))}` : `${2 * Math.PI * 42}`}
+                    strokeLinecap="round"
+                    transform="rotate(-90 50 50)"
+                  />
                 </svg>
                 <div className="macro-icon-center protein">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
                     <path d="M12 4L9 7H7C6.4 7 6 7.4 6 8V10C6 10.6 6.4 11 7 11H9L12 14V4Z" fill="#ff6b6b"/>
                     <path d="M18 8L16 10H14C13.4 10 13 10.4 13 11V13C13 13.6 13.4 14 14 14H16L18 16V8Z" fill="#ff6b6b"/>
                   </svg>
@@ -381,26 +379,24 @@ function App() {
                     cy="50"
                     r="42"
                     fill="none"
-                    stroke="#e5e5e5"
+                    stroke="#f0f0f0"
                     strokeWidth="8"
                   />
-                  {carbsGoal && (
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="42"
-                      fill="none"
-                      stroke="#ffa500"
-                      strokeWidth="8"
-                      strokeDasharray={`${2 * Math.PI * 42}`}
-                      strokeDashoffset={`${2 * Math.PI * 42 * (1 - Math.min(percentages.carbs / 100, 1))}`}
-                      strokeLinecap="round"
-                      transform="rotate(-90 50 50)"
-                    />
-                  )}
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="42"
+                    fill="none"
+                    stroke="#ffa500"
+                    strokeWidth="8"
+                    strokeDasharray={`${2 * Math.PI * 42}`}
+                    strokeDashoffset={carbsGoal ? `${2 * Math.PI * 42 * (1 - Math.min(percentages.carbs / 100, 1))}` : `${2 * Math.PI * 42}`}
+                    strokeLinecap="round"
+                    transform="rotate(-90 50 50)"
+                  />
                 </svg>
                 <div className="macro-icon-center carbs">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
                     <circle cx="12" cy="12" r="8" fill="#ffa500"/>
                     <path d="M8 12L10.5 14.5L16 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
@@ -420,26 +416,24 @@ function App() {
                     cy="50"
                     r="42"
                     fill="none"
-                    stroke="#e5e5e5"
+                    stroke="#f0f0f0"
                     strokeWidth="8"
                   />
-                  {fatGoal && (
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="42"
-                      fill="none"
-                      stroke="#4a90e2"
-                      strokeWidth="8"
-                      strokeDasharray={`${2 * Math.PI * 42}`}
-                      strokeDashoffset={`${2 * Math.PI * 42 * (1 - Math.min(percentages.fat / 100, 1))}`}
-                      strokeLinecap="round"
-                      transform="rotate(-90 50 50)"
-                    />
-                  )}
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="42"
+                    fill="none"
+                    stroke="#4a90e2"
+                    strokeWidth="8"
+                    strokeDasharray={`${2 * Math.PI * 42}`}
+                    strokeDashoffset={fatGoal ? `${2 * Math.PI * 42 * (1 - Math.min(percentages.fat / 100, 1))}` : `${2 * Math.PI * 42}`}
+                    strokeLinecap="round"
+                    transform="rotate(-90 50 50)"
+                  />
                 </svg>
                 <div className="macro-icon-center fat">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
                     <path d="M12 2C8 2 5 5 5 9C5 13 8 16 12 16C16 16 19 13 19 9C19 5 16 2 12 2Z" fill="#4a90e2"/>
                     <path d="M12 6C9.8 6 8 7.8 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 7.8 14.2 6 12 6Z" fill="white" opacity="0.3"/>
                   </svg>
