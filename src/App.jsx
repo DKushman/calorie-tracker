@@ -475,7 +475,7 @@ function App() {
                     cy="50"
                     r="42"
                     fill="none"
-                    stroke="#f0f0f0"
+                    stroke="#ff6b6b"
                     strokeWidth="8"
                   />
                   <circle
@@ -489,6 +489,7 @@ function App() {
                     strokeDashoffset={proteinGoal ? `${2 * Math.PI * 42 * (1 - Math.min(percentages.protein / 100, 1))}` : `${2 * Math.PI * 42}`}
                     strokeLinecap="round"
                     transform="rotate(-90 50 50)"
+                    opacity="0.3"
                   />
                 </svg>
                 <div className="macro-icon-center protein">
@@ -512,7 +513,7 @@ function App() {
                     cy="50"
                     r="42"
                     fill="none"
-                    stroke="#f0f0f0"
+                    stroke="#ffa500"
                     strokeWidth="8"
                   />
                   <circle
@@ -526,6 +527,7 @@ function App() {
                     strokeDashoffset={carbsGoal ? `${2 * Math.PI * 42 * (1 - Math.min(percentages.carbs / 100, 1))}` : `${2 * Math.PI * 42}`}
                     strokeLinecap="round"
                     transform="rotate(-90 50 50)"
+                    opacity="0.3"
                   />
                 </svg>
                 <div className="macro-icon-center carbs">
@@ -549,7 +551,7 @@ function App() {
                     cy="50"
                     r="42"
                     fill="none"
-                    stroke="#f0f0f0"
+                    stroke="#4a90e2"
                     strokeWidth="8"
                   />
                   <circle
@@ -563,6 +565,7 @@ function App() {
                     strokeDashoffset={fatGoal ? `${2 * Math.PI * 42 * (1 - Math.min(percentages.fat / 100, 1))}` : `${2 * Math.PI * 42}`}
                     strokeLinecap="round"
                     transform="rotate(-90 50 50)"
+                    opacity="0.3"
                   />
                 </svg>
                 <div className="macro-icon-center fat">
