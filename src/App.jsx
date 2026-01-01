@@ -35,56 +35,102 @@ function App() {
 
   // Load from localStorage
   useEffect(() => {
-    const savedMeals = localStorage.getItem('calorieTrackerMeals')
-    if (savedMeals) {
-      setMeals(JSON.parse(savedMeals))
-    }
-    const savedGoal = localStorage.getItem('calorieTrackerGoal')
-    if (savedGoal) {
-      setDailyGoal(Number(savedGoal))
-    }
-    const savedProtein = localStorage.getItem('calorieTrackerProteinGoal')
-    if (savedProtein) {
-      setProteinGoal(Number(savedProtein))
-    }
-    const savedCarbs = localStorage.getItem('calorieTrackerCarbsGoal')
-    if (savedCarbs) {
-      setCarbsGoal(Number(savedCarbs))
-    }
-    const savedFat = localStorage.getItem('calorieTrackerFatGoal')
-    if (savedFat) {
-      setFatGoal(Number(savedFat))
+    try {
+      const savedMeals = localStorage.getItem('calorieTrackerMeals')
+      if (savedMeals) {
+        const parsedMeals = JSON.parse(savedMeals)
+        setMeals(parsedMeals)
+      }
+      
+      const savedGoal = localStorage.getItem('calorieTrackerGoal')
+      if (savedGoal) {
+        setDailyGoal(Number(savedGoal))
+      }
+      
+      const savedProtein = localStorage.getItem('calorieTrackerProteinGoal')
+      if (savedProtein) {
+        setProteinGoal(Number(savedProtein))
+      }
+      
+      const savedCarbs = localStorage.getItem('calorieTrackerCarbsGoal')
+      if (savedCarbs) {
+        setCarbsGoal(Number(savedCarbs))
+      }
+      
+      const savedFat = localStorage.getItem('calorieTrackerFatGoal')
+      if (savedFat) {
+        setFatGoal(Number(savedFat))
+      }
+      
+      const savedDate = localStorage.getItem('calorieTrackerSelectedDate')
+      if (savedDate) {
+        setSelectedDate(new Date(savedDate))
+      }
+    } catch (error) {
+      console.error('Error loading from localStorage:', error)
     }
   }, [])
 
   // Save to localStorage
   useEffect(() => {
-    localStorage.setItem('calorieTrackerMeals', JSON.stringify(meals))
+    try {
+      localStorage.setItem('calorieTrackerMeals', JSON.stringify(meals))
+    } catch (error) {
+      console.error('Error saving meals to localStorage:', error)
+      // If storage is full, try to compress or remove old data
+      if (error.name === 'QuotaExceededError') {
+        alert('Speicher voll! Bitte lösche einige alte Mahlzeiten.')
+      }
+    }
   }, [meals])
 
   useEffect(() => {
     if (dailyGoal !== null) {
-      localStorage.setItem('calorieTrackerGoal', dailyGoal.toString())
+      try {
+        localStorage.setItem('calorieTrackerGoal', dailyGoal.toString())
+      } catch (error) {
+        console.error('Error saving goal to localStorage:', error)
+      }
     }
   }, [dailyGoal])
 
   useEffect(() => {
     if (proteinGoal !== null) {
-      localStorage.setItem('calorieTrackerProteinGoal', proteinGoal.toString())
+      try {
+        localStorage.setItem('calorieTrackerProteinGoal', proteinGoal.toString())
+      } catch (error) {
+        console.error('Error saving protein goal to localStorage:', error)
+      }
     }
   }, [proteinGoal])
 
   useEffect(() => {
     if (carbsGoal !== null) {
-      localStorage.setItem('calorieTrackerCarbsGoal', carbsGoal.toString())
+      try {
+        localStorage.setItem('calorieTrackerCarbsGoal', carbsGoal.toString())
+      } catch (error) {
+        console.error('Error saving carbs goal to localStorage:', error)
+      }
     }
   }, [carbsGoal])
 
   useEffect(() => {
     if (fatGoal !== null) {
-      localStorage.setItem('calorieTrackerFatGoal', fatGoal.toString())
+      try {
+        localStorage.setItem('calorieTrackerFatGoal', fatGoal.toString())
+      } catch (error) {
+        console.error('Error saving fat goal to localStorage:', error)
+      }
     }
   }, [fatGoal])
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('calorieTrackerSelectedDate', selectedDate.toISOString())
+    } catch (error) {
+      console.error('Error saving selected date to localStorage:', error)
+    }
+  }, [selectedDate])
 
   // Get meals for selected date
   const selectedDateStr = formatDate(selectedDate)
@@ -134,19 +180,61 @@ function App() {
     return total > dailyGoal ? 'over' : 'under'
   }
 
-  // Handle Image Upload
+  // Handle Image Upload with compression
   const handleImageChange = (e) => {
     const file = e.target.files[0]
     if (file) {
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setMealForm(prev => ({
-          ...prev,
-          image: reader.result,
-          imagePreview: reader.result
-        }))
+      // Compress image if too large
+      const maxSize = 500 * 1024 // 500KB
+      if (file.size > maxSize) {
+        const reader = new FileReader()
+        reader.onloadend = () => {
+          const img = new Image()
+          img.onload = () => {
+            const canvas = document.createElement('canvas')
+            let width = img.width
+            let height = img.height
+            
+            // Calculate new dimensions
+            const maxDimension = 800
+            if (width > height) {
+              if (width > maxDimension) {
+                height = (height / width) * maxDimension
+                width = maxDimension
+              }
+            } else {
+              if (height > maxDimension) {
+                width = (width / height) * maxDimension
+                height = maxDimension
+              }
+            }
+            
+            canvas.width = width
+            canvas.height = height
+            const ctx = canvas.getContext('2d')
+            ctx.drawImage(img, 0, 0, width, height)
+            
+            const compressed = canvas.toDataURL('image/jpeg', 0.8)
+            setMealForm(prev => ({
+              ...prev,
+              image: compressed,
+              imagePreview: compressed
+            }))
+          }
+          img.src = reader.result
+        }
+        reader.readAsDataURL(file)
+      } else {
+        const reader = new FileReader()
+        reader.onloadend = () => {
+          setMealForm(prev => ({
+            ...prev,
+            image: reader.result,
+            imagePreview: reader.result
+          }))
+        }
+        reader.readAsDataURL(file)
       }
-      reader.readAsDataURL(file)
     }
   }
 
@@ -342,24 +430,26 @@ function App() {
                     cy="50"
                     r="42"
                     fill="none"
-                    stroke="#f0f0f0"
+                    stroke="#e5e5e5"
                     strokeWidth="8"
                   />
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="42"
-                    fill="none"
-                    stroke="#ff6b6b"
-                    strokeWidth="8"
-                    strokeDasharray={`${2 * Math.PI * 42}`}
-                    strokeDashoffset={proteinGoal ? `${2 * Math.PI * 42 * (1 - Math.min(percentages.protein / 100, 1))}` : `${2 * Math.PI * 42}`}
-                    strokeLinecap="round"
-                    transform="rotate(-90 50 50)"
-                  />
+                  {proteinGoal && (
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="42"
+                      fill="none"
+                      stroke="#ff6b6b"
+                      strokeWidth="8"
+                      strokeDasharray={`${2 * Math.PI * 42}`}
+                      strokeDashoffset={`${2 * Math.PI * 42 * (1 - Math.min(percentages.protein / 100, 1))}`}
+                      strokeLinecap="round"
+                      transform="rotate(-90 50 50)"
+                    />
+                  )}
                 </svg>
                 <div className="macro-icon-center protein">
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path d="M12 4L9 7H7C6.4 7 6 7.4 6 8V10C6 10.6 6.4 11 7 11H9L12 14V4Z" fill="#ff6b6b"/>
                     <path d="M18 8L16 10H14C13.4 10 13 10.4 13 11V13C13 13.6 13.4 14 14 14H16L18 16V8Z" fill="#ff6b6b"/>
                   </svg>
@@ -379,24 +469,26 @@ function App() {
                     cy="50"
                     r="42"
                     fill="none"
-                    stroke="#f0f0f0"
+                    stroke="#e5e5e5"
                     strokeWidth="8"
                   />
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="42"
-                    fill="none"
-                    stroke="#ffa500"
-                    strokeWidth="8"
-                    strokeDasharray={`${2 * Math.PI * 42}`}
-                    strokeDashoffset={carbsGoal ? `${2 * Math.PI * 42 * (1 - Math.min(percentages.carbs / 100, 1))}` : `${2 * Math.PI * 42}`}
-                    strokeLinecap="round"
-                    transform="rotate(-90 50 50)"
-                  />
+                  {carbsGoal && (
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="42"
+                      fill="none"
+                      stroke="#ffa500"
+                      strokeWidth="8"
+                      strokeDasharray={`${2 * Math.PI * 42}`}
+                      strokeDashoffset={`${2 * Math.PI * 42 * (1 - Math.min(percentages.carbs / 100, 1))}`}
+                      strokeLinecap="round"
+                      transform="rotate(-90 50 50)"
+                    />
+                  )}
                 </svg>
                 <div className="macro-icon-center carbs">
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <circle cx="12" cy="12" r="8" fill="#ffa500"/>
                     <path d="M8 12L10.5 14.5L16 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
@@ -416,24 +508,26 @@ function App() {
                     cy="50"
                     r="42"
                     fill="none"
-                    stroke="#f0f0f0"
+                    stroke="#e5e5e5"
                     strokeWidth="8"
                   />
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="42"
-                    fill="none"
-                    stroke="#4a90e2"
-                    strokeWidth="8"
-                    strokeDasharray={`${2 * Math.PI * 42}`}
-                    strokeDashoffset={fatGoal ? `${2 * Math.PI * 42 * (1 - Math.min(percentages.fat / 100, 1))}` : `${2 * Math.PI * 42}`}
-                    strokeLinecap="round"
-                    transform="rotate(-90 50 50)"
-                  />
+                  {fatGoal && (
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="42"
+                      fill="none"
+                      stroke="#4a90e2"
+                      strokeWidth="8"
+                      strokeDasharray={`${2 * Math.PI * 42}`}
+                      strokeDashoffset={`${2 * Math.PI * 42 * (1 - Math.min(percentages.fat / 100, 1))}`}
+                      strokeLinecap="round"
+                      transform="rotate(-90 50 50)"
+                    />
+                  )}
                 </svg>
                 <div className="macro-icon-center fat">
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path d="M12 2C8 2 5 5 5 9C5 13 8 16 12 16C16 16 19 13 19 9C19 5 16 2 12 2Z" fill="#4a90e2"/>
                     <path d="M12 6C9.8 6 8 7.8 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 7.8 14.2 6 12 6Z" fill="white" opacity="0.3"/>
                   </svg>
