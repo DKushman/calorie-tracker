@@ -136,12 +136,13 @@ body {
 .main-card {
   background: white;
   border-radius: 20px;
-  padding: 28px 32px;
+  padding: 32px 36px;
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  gap: 24px;
 }
 
 .calories-info {
@@ -149,25 +150,30 @@ body {
 }
 
 .calories-number {
-  font-size: 56px;
+  font-size: 64px;
   font-weight: 700;
   color: #1d1d1f;
-  margin-bottom: 6px;
-  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+  letter-spacing: -1px;
   line-height: 1;
 }
 
 .calories-label {
-  font-size: 15px;
+  font-size: 17px;
   color: #86868b;
   font-weight: 400;
 }
 
 .main-progress {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
   flex-shrink: 0;
+}
+
+.main-progress svg {
+  width: 140px;
+  height: 140px;
 }
 
 .flame-icon {
@@ -178,8 +184,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
 }
 
 .flame-icon svg {
@@ -199,7 +205,7 @@ body {
 .macro-card-main {
   background: white;
   border-radius: 16px;
-  padding: 20px 16px;
+  padding: 24px 18px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
@@ -210,35 +216,35 @@ body {
 
 .macro-info {
   width: 100%;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .macro-number-main {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
   color: #1d1d1f;
-  margin-bottom: 4px;
-  letter-spacing: -0.3px;
+  margin-bottom: 6px;
+  letter-spacing: -0.4px;
   line-height: 1;
 }
 
 .macro-label-main {
-  font-size: 12px;
+  font-size: 14px;
   color: #86868b;
   font-weight: 400;
 }
 
 .macro-progress {
   position: relative;
-  width: 90px;
-  height: 90px;
+  width: 100px;
+  height: 100px;
   margin: 0 auto;
   flex-shrink: 0;
 }
 
 .macro-svg {
-  width: 90px;
-  height: 90px;
+  width: 100px;
+  height: 100px;
 }
 
 .macro-icon-center {
@@ -252,8 +258,8 @@ body {
 }
 
 .macro-icon-center svg {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
 }
 
 
@@ -346,11 +352,11 @@ body {
 }
 
 .section-title {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 700;
   color: #1d1d1f;
-  margin-bottom: 16px;
-  letter-spacing: -0.4px;
+  margin-bottom: 22px;
+  letter-spacing: -0.5px;
 }
 
 .empty-state {
@@ -425,22 +431,22 @@ body {
 }
 
 .meal-name {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 600;
   color: #1d1d1f;
   letter-spacing: -0.2px;
 }
 
 .meal-time {
-  font-size: 14px;
+  font-size: 15px;
   color: #86868b;
 }
 
 .meal-calories {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
   color: #1d1d1f;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -448,12 +454,14 @@ body {
 
 .flame-icon-small {
   flex-shrink: 0;
+  width: 16px;
+  height: 16px;
 }
 
 .meal-macros {
   display: flex;
-  gap: 12px;
-  font-size: 12px;
+  gap: 14px;
+  font-size: 14px;
 }
 
 .macro-item {
@@ -948,22 +956,26 @@ body {
   }
 
   .calories-number {
-    font-size: 48px;
+    font-size: 56px;
+  }
+
+  .calories-label {
+    font-size: 16px;
   }
 
   .main-progress {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
   }
 
   .main-progress svg {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
   }
 
   .flame-icon {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
   }
 
   .flame-icon svg {
@@ -986,26 +998,26 @@ body {
   }
 
   .macro-number-main {
-    font-size: 18px;
+    font-size: 22px;
   }
 
   .macro-label-main {
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .macro-progress {
-    width: 70px;
-    height: 70px;
+    width: 85px;
+    height: 85px;
   }
 
   .macro-svg {
-    width: 70px;
-    height: 70px;
+    width: 85px;
+    height: 85px;
   }
 
   .macro-icon-center svg {
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
   }
 
 

@@ -298,30 +298,30 @@ function App() {
               <p className="calories-label">Calories left</p>
             </div>
             <div className="main-progress">
-              <svg width="120" height="120" viewBox="0 0 120 120">
+              <svg width="140" height="140" viewBox="0 0 140 140">
                 <circle
-                  cx="60"
-                  cy="60"
-                  r="50"
+                  cx="70"
+                  cy="70"
+                  r="58"
                   fill="none"
                   stroke="#e5e5e5"
-                  strokeWidth="8"
+                  strokeWidth="10"
                 />
                 <circle
-                  cx="60"
-                  cy="60"
-                  r="50"
+                  cx="70"
+                  cy="70"
+                  r="58"
                   fill="none"
                   stroke="#000"
-                  strokeWidth="8"
-                  strokeDasharray={`${2 * Math.PI * 50}`}
-                  strokeDashoffset={`${2 * Math.PI * 50 * (1 - Math.min(percentages.calories / 100, 1))}`}
+                  strokeWidth="10"
+                  strokeDasharray={`${2 * Math.PI * 58}`}
+                  strokeDashoffset={`${2 * Math.PI * 58 * (1 - Math.min(percentages.calories / 100, 1))}`}
                   strokeLinecap="round"
-                  transform="rotate(-90 60 60)"
+                  transform="rotate(-90 70 70)"
                 />
               </svg>
               <div className="flame-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
                   <path d="M12 2C8 2 6 5 6 9C6 11.5 7 13.5 8.5 15C9.5 16 10 17 10 18C10 19.5 11.5 21 13.5 21C15.5 21 17 19.5 17 18C17 17 17.5 16 18.5 15C20 13.5 21 11.5 21 9C21 5 19 2 15 2C13 2 12.5 2.5 12 3C11.5 2.5 11 2 12 2Z" fill="#000"/>
                 </svg>
               </div>
@@ -336,32 +336,32 @@ function App() {
                 <p className="macro-label-main">Protein</p>
               </div>
               <div className="macro-progress">
-                <svg className="macro-svg" viewBox="0 0 90 90">
+                <svg className="macro-svg" viewBox="0 0 100 100">
                   <circle
-                    cx="45"
-                    cy="45"
-                    r="38"
+                    cx="50"
+                    cy="50"
+                    r="42"
                     fill="none"
                     stroke="#e5e5e5"
-                    strokeWidth="6"
+                    strokeWidth="8"
                   />
                   {proteinGoal && (
                     <circle
-                      cx="45"
-                      cy="45"
-                      r="38"
+                      cx="50"
+                      cy="50"
+                      r="42"
                       fill="none"
                       stroke="#ff6b6b"
-                      strokeWidth="6"
-                      strokeDasharray={`${2 * Math.PI * 38}`}
-                      strokeDashoffset={`${2 * Math.PI * 38 * (1 - Math.min(percentages.protein / 100, 1))}`}
+                      strokeWidth="8"
+                      strokeDasharray={`${2 * Math.PI * 42}`}
+                      strokeDashoffset={`${2 * Math.PI * 42 * (1 - Math.min(percentages.protein / 100, 1))}`}
                       strokeLinecap="round"
-                      transform="rotate(-90 45 45)"
+                      transform="rotate(-90 50 50)"
                     />
                   )}
                 </svg>
                 <div className="macro-icon-center protein">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path d="M12 4L9 7H7C6.4 7 6 7.4 6 8V10C6 10.6 6.4 11 7 11H9L12 14V4Z" fill="#ff6b6b"/>
                     <path d="M18 8L16 10H14C13.4 10 13 10.4 13 11V13C13 13.6 13.4 14 14 14H16L18 16V8Z" fill="#ff6b6b"/>
                   </svg>
@@ -375,32 +375,32 @@ function App() {
                 <p className="macro-label-main">Carbs</p>
               </div>
               <div className="macro-progress">
-                <svg className="macro-svg" viewBox="0 0 90 90">
+                <svg className="macro-svg" viewBox="0 0 100 100">
                   <circle
-                    cx="45"
-                    cy="45"
-                    r="38"
+                    cx="50"
+                    cy="50"
+                    r="42"
                     fill="none"
                     stroke="#e5e5e5"
-                    strokeWidth="6"
+                    strokeWidth="8"
                   />
                   {carbsGoal && (
                     <circle
-                      cx="45"
-                      cy="45"
-                      r="38"
+                      cx="50"
+                      cy="50"
+                      r="42"
                       fill="none"
                       stroke="#ffa500"
-                      strokeWidth="6"
-                      strokeDasharray={`${2 * Math.PI * 38}`}
-                      strokeDashoffset={`${2 * Math.PI * 38 * (1 - Math.min(percentages.carbs / 100, 1))}`}
+                      strokeWidth="8"
+                      strokeDasharray={`${2 * Math.PI * 42}`}
+                      strokeDashoffset={`${2 * Math.PI * 42 * (1 - Math.min(percentages.carbs / 100, 1))}`}
                       strokeLinecap="round"
-                      transform="rotate(-90 45 45)"
+                      transform="rotate(-90 50 50)"
                     />
                   )}
                 </svg>
                 <div className="macro-icon-center carbs">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <circle cx="12" cy="12" r="8" fill="#ffa500"/>
                     <path d="M8 12L10.5 14.5L16 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
@@ -414,32 +414,32 @@ function App() {
                 <p className="macro-label-main">Fat</p>
               </div>
               <div className="macro-progress">
-                <svg className="macro-svg" viewBox="0 0 90 90">
+                <svg className="macro-svg" viewBox="0 0 100 100">
                   <circle
-                    cx="45"
-                    cy="45"
-                    r="38"
+                    cx="50"
+                    cy="50"
+                    r="42"
                     fill="none"
                     stroke="#e5e5e5"
-                    strokeWidth="6"
+                    strokeWidth="8"
                   />
                   {fatGoal && (
                     <circle
-                      cx="45"
-                      cy="45"
-                      r="38"
+                      cx="50"
+                      cy="50"
+                      r="42"
                       fill="none"
                       stroke="#4a90e2"
-                      strokeWidth="6"
-                      strokeDasharray={`${2 * Math.PI * 38}`}
-                      strokeDashoffset={`${2 * Math.PI * 38 * (1 - Math.min(percentages.fat / 100, 1))}`}
+                      strokeWidth="8"
+                      strokeDasharray={`${2 * Math.PI * 42}`}
+                      strokeDashoffset={`${2 * Math.PI * 42 * (1 - Math.min(percentages.fat / 100, 1))}`}
                       strokeLinecap="round"
-                      transform="rotate(-90 45 45)"
+                      transform="rotate(-90 50 50)"
                     />
                   )}
                 </svg>
                 <div className="macro-icon-center fat">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path d="M12 2C8 2 5 5 5 9C5 13 8 16 12 16C16 16 19 13 19 9C19 5 16 2 12 2Z" fill="#4a90e2"/>
                     <path d="M12 6C9.8 6 8 7.8 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 7.8 14.2 6 12 6Z" fill="white" opacity="0.3"/>
                   </svg>
