@@ -14,6 +14,7 @@ function App() {
   const [showCalendar, setShowCalendar] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [quickCalories, setQuickCalories] = useState(0)
+  const [quickProtein, setQuickProtein] = useState(0)
   const [isInitialized, setIsInitialized] = useState(false)
   const [calendarMonth, setCalendarMonth] = useState(new Date())
   
@@ -306,12 +307,12 @@ function App() {
 
   // Handle Quick Add
   const handleQuickAdd = () => {
-    if (quickCalories > 0) {
+    if (quickCalories > 0 || quickProtein > 0) {
       const newMeal = {
         id: Date.now(),
         name: 'Quick Add',
         calories: quickCalories,
-        protein: 0,
+        protein: quickProtein,
         carbs: 0,
         fat: 0,
         image: null,
@@ -321,6 +322,7 @@ function App() {
       setMeals(prev => [newMeal, ...prev])
       setShowQuickAdd(false)
       setQuickCalories(0)
+      setQuickProtein(0)
     }
   }
 
@@ -332,9 +334,9 @@ function App() {
     const carbs = Number(e.target.carbs.value) || null
     const fat = Number(e.target.fat.value) || null
     
-    if (goal > 0) {
+    if (goal > 0 && protein > 0) {
       setDailyGoal(goal)
-      if (protein > 0) setProteinGoal(protein)
+      setProteinGoal(protein)
       if (carbs > 0) setCarbsGoal(carbs)
       if (fat > 0) setFatGoal(fat)
       setShowSettings(false)
@@ -430,9 +432,9 @@ function App() {
       </header>
 
       {/* Settings Prompt if no goal set */}
-      {!dailyGoal && (
+      {(!dailyGoal || !proteinGoal) && (
         <div className="settings-prompt">
-          <p>Bitte setze dein tägliches Kalorienziel</p>
+          <p>Bitte setze dein Kalorien- und Protein-Ziel</p>
           <button className="settings-btn" onClick={() => setShowSettings(true)}>
             Ziele setzen
           </button>
@@ -443,164 +445,162 @@ function App() {
       {dailyGoal && (
         <>
           <div className="main-card">
-            <div className="calories-info">
-              <h2 className="calories-number">{remaining.calories >= 0 ? remaining.calories : 0}</h2>
-              <p className="calories-label">Calories left</p>
-            </div>
-            <div className="main-progress">
-              <svg width="140" height="140" viewBox="0 0 140 140">
-                <circle
-                  cx="70"
-                  cy="70"
-                  r="58"
-                  fill="none"
-                  stroke="#e5e5e5"
-                  strokeWidth="10"
-                />
-                <circle
-                  cx="70"
-                  cy="70"
-                  r="58"
-                  fill="none"
-                  stroke="#000"
-                  strokeWidth="10"
-                  strokeDasharray={`${2 * Math.PI * 58}`}
-                  strokeDashoffset={`${2 * Math.PI * 58 * (1 - Math.min(percentages.calories / 100, 1))}`}
-                  strokeLinecap="round"
-                  transform="rotate(-90 70 70)"
-                />
-              </svg>
-              <div className="flame-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2C8 2 6 5 6 9C6 11.5 7 13.5 8.5 15C9.5 16 10 17 10 18C10 19.5 11.5 21 13.5 21C15.5 21 17 19.5 17 18C17 17 17.5 16 18.5 15C20 13.5 21 11.5 21 9C21 5 19 2 15 2C13 2 12.5 2.5 12 3C11.5 2.5 11 2 12 2Z" fill="#000"/>
-                </svg>
+            <div className="card-top-section">
+              <div className="calories-info">
+                <h2 className="calories-number">{remaining.calories >= 0 ? remaining.calories : 0}</h2>
+                <p className="calories-label">Calories left</p>
               </div>
+              <div className="main-progress">
+                <svg width="140" height="140" viewBox="0 0 140 140">
+                  <circle
+                    cx="70"
+                    cy="70"
+                    r="58"
+                    fill="none"
+                    stroke="#e5e5e5"
+                    strokeWidth="10"
+                  />
+                  <circle
+                    cx="70"
+                    cy="70"
+                    r="58"
+                    fill="none"
+                    stroke="#000"
+                    strokeWidth="10"
+                    strokeDasharray={`${2 * Math.PI * 58}`}
+                    strokeDashoffset={`${2 * Math.PI * 58 * (1 - Math.min(percentages.calories / 100, 1))}`}
+                    strokeLinecap="round"
+                    transform="rotate(-90 70 70)"
+                  />
+                </svg>
+                <div className="flame-icon">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2C8 2 6 5 6 9C6 11.5 7 13.5 8.5 15C9.5 16 10 17 10 18C10 19.5 11.5 21 13.5 21C15.5 21 17 19.5 17 18C17 17 17.5 16 18.5 15C20 13.5 21 11.5 21 9C21 5 19 2 15 2C13 2 12.5 2.5 12 3C11.5 2.5 11 2 12 2Z" fill="#000"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div className="slider-container">
+              <input
+                type="range"
+                min="0"
+                max="1000"
+                step="10"
+                value={quickCalories}
+                onChange={(e) => setQuickCalories(Number(e.target.value))}
+                className="calorie-slider"
+              />
+              <div className="slider-labels">
+                <span>0</span>
+                <span>500</span>
+                <span>1000</span>
+              </div>
+              {quickCalories > 0 && (
+                <button 
+                  className="quick-add-inline-btn" 
+                  onClick={() => {
+                    const newMeal = {
+                      id: Date.now(),
+                      name: 'Quick Add',
+                      calories: quickCalories,
+                      protein: 0,
+                      carbs: 0,
+                      fat: 0,
+                      image: null,
+                      time: new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }),
+                      date: selectedDateStr
+                    }
+                    setMeals(prev => [newMeal, ...prev])
+                    setQuickCalories(0)
+                  }}
+                >
+                  + {quickCalories}
+                </button>
+              )}
             </div>
           </div>
 
-          {/* Macro Cards - Exact design from image */}
-          <div className="macro-cards-main">
-            <div className="macro-card-main protein-card">
-              <div className="macro-info">
-                <h2 className="macro-number-main">{proteinGoal ? (remaining.protein >= 0 ? remaining.protein : 0) : consumed.protein}g</h2>
-                <p className="macro-label-main">Protein</p>
-              </div>
-              <div className="macro-progress">
-                <svg className="macro-svg" viewBox="0 0 100 100">
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="42"
-                    fill="none"
-                    stroke="#ff6b6b"
-                    strokeWidth="8"
-                  />
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="42"
-                    fill="none"
-                    stroke="#ff6b6b"
-                    strokeWidth="8"
-                    strokeDasharray={`${2 * Math.PI * 42}`}
-                    strokeDashoffset={proteinGoal ? `${2 * Math.PI * 42 * (1 - Math.min(percentages.protein / 100, 1))}` : `${2 * Math.PI * 42}`}
-                    strokeLinecap="round"
-                    transform="rotate(-90 50 50)"
-                    opacity="0.3"
-                  />
-                </svg>
-                <div className="macro-icon-center protein">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 4L9 7H7C6.4 7 6 7.4 6 8V10C6 10.6 6.4 11 7 11H9L12 14V4Z" fill="#ff6b6b"/>
-                    <path d="M18 8L16 10H14C13.4 10 13 10.4 13 11V13C13 13.6 13.4 14 14 14H16L18 16V8Z" fill="#ff6b6b"/>
+          {/* Protein Card - Same layout as calories card with red color */}
+          {proteinGoal && (
+            <div className="main-card">
+              <div className="card-top-section">
+                <div className="calories-info">
+                  <h2 className="calories-number">{remaining.protein >= 0 ? remaining.protein : 0}g</h2>
+                  <p className="calories-label">Protein left</p>
+                </div>
+                <div className="main-progress">
+                  <svg width="140" height="140" viewBox="0 0 140 140">
+                    <circle
+                      cx="70"
+                      cy="70"
+                      r="58"
+                      fill="none"
+                      stroke="#e5e5e5"
+                      strokeWidth="10"
+                    />
+                    <circle
+                      cx="70"
+                      cy="70"
+                      r="58"
+                      fill="none"
+                      stroke="#ff6b6b"
+                      strokeWidth="10"
+                      strokeDasharray={`${2 * Math.PI * 58}`}
+                      strokeDashoffset={proteinGoal ? `${2 * Math.PI * 58 * (1 - Math.min(percentages.protein / 100, 1))}` : `${2 * Math.PI * 58}`}
+                      strokeLinecap="round"
+                      transform="rotate(-90 70 70)"
+                    />
                   </svg>
+                  <div className="flame-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 4L9 7H7C6.4 7 6 7.4 6 8V10C6 10.6 6.4 11 7 11H9L12 14V4Z" fill="#ff6b6b"/>
+                      <path d="M18 8L16 10H14C13.4 10 13 10.4 13 11V13C13 13.6 13.4 14 14 14H16L18 16V8Z" fill="#ff6b6b"/>
+                    </svg>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div className="macro-card-main carbs-card">
-              <div className="macro-info">
-                <h2 className="macro-number-main">{carbsGoal ? (remaining.carbs >= 0 ? remaining.carbs : 0) : consumed.carbs}g</h2>
-                <p className="macro-label-main">Carbs</p>
-              </div>
-              <div className="macro-progress">
-                <svg className="macro-svg" viewBox="0 0 100 100">
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="42"
-                    fill="none"
-                    stroke="#ffa500"
-                    strokeWidth="8"
-                  />
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="42"
-                    fill="none"
-                    stroke="#ffa500"
-                    strokeWidth="8"
-                    strokeDasharray={`${2 * Math.PI * 42}`}
-                    strokeDashoffset={carbsGoal ? `${2 * Math.PI * 42 * (1 - Math.min(percentages.carbs / 100, 1))}` : `${2 * Math.PI * 42}`}
-                    strokeLinecap="round"
-                    transform="rotate(-90 50 50)"
-                    opacity="0.3"
-                  />
-                </svg>
-                <div className="macro-icon-center carbs">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="12" r="8" fill="#ffa500"/>
-                    <path d="M8 12L10.5 14.5L16 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
+              <div className="slider-container">
+                <input
+                  type="range"
+                  min="0"
+                  max="200"
+                  step="5"
+                  value={quickProtein}
+                  onChange={(e) => setQuickProtein(Number(e.target.value))}
+                  className="protein-slider"
+                />
+                <div className="slider-labels">
+                  <span>0</span>
+                  <span>100</span>
+                  <span>200</span>
                 </div>
+                {quickProtein > 0 && (
+                  <button 
+                    className="quick-add-inline-btn protein-btn" 
+                    onClick={() => {
+                      const newMeal = {
+                        id: Date.now(),
+                        name: 'Quick Add',
+                        calories: 0,
+                        protein: quickProtein,
+                        carbs: 0,
+                        fat: 0,
+                        image: null,
+                        time: new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }),
+                        date: selectedDateStr
+                      }
+                      setMeals(prev => [newMeal, ...prev])
+                      setQuickProtein(0)
+                    }}
+                  >
+                    + {quickProtein}g
+                  </button>
+                )}
               </div>
             </div>
-
-            <div className="macro-card-main fat-card">
-              <div className="macro-info">
-                <h2 className="macro-number-main">{fatGoal ? (remaining.fat >= 0 ? remaining.fat : 0) : consumed.fat}g</h2>
-                <p className="macro-label-main">Fat</p>
-              </div>
-              <div className="macro-progress">
-                <svg className="macro-svg" viewBox="0 0 100 100">
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="42"
-                    fill="none"
-                    stroke="#4a90e2"
-                    strokeWidth="8"
-                  />
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r="42"
-                    fill="none"
-                    stroke="#4a90e2"
-                    strokeWidth="8"
-                    strokeDasharray={`${2 * Math.PI * 42}`}
-                    strokeDashoffset={fatGoal ? `${2 * Math.PI * 42 * (1 - Math.min(percentages.fat / 100, 1))}` : `${2 * Math.PI * 42}`}
-                    strokeLinecap="round"
-                    transform="rotate(-90 50 50)"
-                    opacity="0.3"
-                  />
-                </svg>
-                <div className="macro-icon-center fat">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2C8 2 5 5 5 9C5 13 8 16 12 16C16 16 19 13 19 9C19 5 16 2 12 2Z" fill="#4a90e2"/>
-                    <path d="M12 6C9.8 6 8 7.8 8 10C8 12.2 9.8 14 12 14C14.2 14 16 12.2 16 10C16 7.8 14.2 6 12 6Z" fill="white" opacity="0.3"/>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
+          )}
         </>
       )}
-
-      {/* Quick Add Button */}
-      <button className="quick-add-btn" onClick={() => setShowQuickAdd(true)}>
-        Schnell hinzufügen
-      </button>
 
       {/* Recently Logged Section */}
       <div className="recently-logged">
@@ -802,28 +802,52 @@ function App() {
               <button className="close-btn" onClick={() => setShowQuickAdd(false)}>×</button>
             </div>
             <div className="quick-add-content">
-              <div className="calories-display">
-                <h1>{quickCalories}</h1>
-                <p>Kalorien</p>
+              <div className="quick-add-card">
+                <div className="calories-display">
+                  <h1>{quickCalories}</h1>
+                  <p>Kalorien</p>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="1000"
+                  step="10"
+                  value={quickCalories}
+                  onChange={(e) => setQuickCalories(Number(e.target.value))}
+                  className="calorie-slider"
+                />
+                <div className="slider-labels">
+                  <span>0</span>
+                  <span>500</span>
+                  <span>1000</span>
+                </div>
               </div>
-              <input
-                type="range"
-                min="0"
-                max="1000"
-                step="10"
-                value={quickCalories}
-                onChange={(e) => setQuickCalories(Number(e.target.value))}
-                className="calorie-slider"
-              />
-              <div className="slider-labels">
-                <span>0</span>
-                <span>500</span>
-                <span>1000</span>
+              
+              <div className="quick-add-card">
+                <div className="calories-display">
+                  <h1 style={{ color: '#ff6b6b' }}>{quickProtein}g</h1>
+                  <p>Protein</p>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="200"
+                  step="5"
+                  value={quickProtein}
+                  onChange={(e) => setQuickProtein(Number(e.target.value))}
+                  className="protein-slider"
+                />
+                <div className="slider-labels">
+                  <span>0</span>
+                  <span>100</span>
+                  <span>200</span>
+                </div>
               </div>
+              
               <button 
                 className="submit-btn" 
                 onClick={handleQuickAdd}
-                disabled={quickCalories === 0}
+                disabled={quickCalories === 0 && quickProtein === 0}
               >
                 Hinzufügen
               </button>
@@ -853,13 +877,14 @@ function App() {
                 />
               </div>
               <div className="form-group">
-                <label>Protein (g)</label>
+                <label>Protein (g) *</label>
                 <input
                   type="number"
                   name="protein"
                   defaultValue={proteinGoal || ''}
-                  min="0"
-                  placeholder="Optional"
+                  required
+                  min="1"
+                  placeholder="z.B. 150"
                 />
               </div>
               <div className="form-group">

@@ -139,11 +139,18 @@ body {
   padding: 32px 36px;
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   margin-bottom: 20px;
   gap: 24px;
 }
+
+.card-top-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
 
 .calories-info {
   flex: 1;
@@ -192,6 +199,11 @@ body {
   width: 100%;
   height: 100%;
   display: block;
+}
+
+/* Protein Card Reversed - Circle on left, text on right */
+.protein-card-reversed {
+  flex-direction: row-reverse;
 }
 
 /* Macro Cards - Main Cards (similar to calories card but smaller, horizontal) */
@@ -320,30 +332,67 @@ body {
   height: 18px;
 }
 
-/* Quick Add Button */
-.quick-add-btn {
+/* Slider Container */
+.slider-container {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  margin-bottom: 0;
   width: 100%;
-  padding: 16px;
-  background: white;
-  color: #1d1d1f;
+  margin-top: 8px;
+}
+
+.slider-container .calorie-slider,
+.slider-container .protein-slider {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.slider-container .slider-labels {
+  margin-bottom: 12px;
+  font-size: 11px;
+  color: #86868b;
+  opacity: 0.7;
+}
+
+.quick-add-inline-btn {
+  width: 100%;
+  padding: 10px 16px;
+  background: #000;
+  color: white;
   border: none;
-  border-radius: 16px;
-  font-size: 17px;
-  font-weight: 500;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: all 0.2s ease;
-  margin-bottom: 32px;
+  transition: all 0.15s ease;
+  letter-spacing: -0.2px;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.quick-add-btn:hover {
-  background: #f5f5f7;
+.quick-add-inline-btn:hover {
+  background: #1a1a1a;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-.quick-add-btn:active {
+.quick-add-inline-btn:active {
   transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.quick-add-inline-btn.protein-btn {
+  background: #ff6b6b;
+  color: white;
+}
+
+.quick-add-inline-btn.protein-btn:hover {
+  background: #ff5252;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
 }
 
 /* Recently Logged */
@@ -806,9 +855,17 @@ body {
   padding: 20px 0;
 }
 
+.quick-add-card {
+  margin-bottom: 32px;
+}
+
+.quick-add-card:last-of-type {
+  margin-bottom: 0;
+}
+
 .calories-display {
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 20px;
 }
 
 .calories-display h1 {
@@ -828,8 +885,8 @@ body {
 
 .calorie-slider {
   width: 100%;
-  height: 6px;
-  border-radius: 3px;
+  height: 2px;
+  border-radius: 1px;
   background: #e5e5e7;
   outline: none;
   -webkit-appearance: none;
@@ -839,37 +896,79 @@ body {
 .calorie-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 28px;
-  height: 28px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  background: #007aff;
+  background: #000;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
-  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: all 0.15s ease;
+  border: 2px solid white;
 }
 
 .calorie-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.1);
-  background: #0051d5;
+  transform: scale(1.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
 .calorie-slider::-moz-range-thumb {
-  width: 28px;
-  height: 28px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  background: #007aff;
+  background: #000;
   cursor: pointer;
-  border: none;
-  box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Protein Slider - Red */
+.protein-slider {
+  width: 100%;
+  height: 2px;
+  border-radius: 1px;
+  background: #e5e5e7;
+  outline: none;
+  -webkit-appearance: none;
+  margin-bottom: 12px;
+}
+
+.protein-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ff6b6b;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(255, 107, 107, 0.25);
+  transition: all 0.15s ease;
+  border: 2px solid white;
+}
+
+.protein-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 2px 6px rgba(255, 107, 107, 0.3);
+}
+
+.protein-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ff6b6b;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(255, 107, 107, 0.25);
 }
 
 .slider-labels {
   display: flex;
   justify-content: space-between;
-  font-size: 13px;
+  font-size: 11px;
   color: #86868b;
   margin-bottom: 24px;
   padding: 0 4px;
+  opacity: 0.7;
+  font-weight: 400;
 }
 
 /* Calendar Modal */
@@ -1060,43 +1159,56 @@ body {
   }
 
   .main-card {
-    flex-direction: row;
-    text-align: left;
-    gap: 20px;
-    padding: 24px;
+    flex-direction: column;
+    padding: 24px 20px;
     margin-bottom: 16px;
+    gap: 20px;
+  }
+
+  .card-top-section {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
   }
 
   .calories-info {
     text-align: left;
+    flex: 1;
   }
 
   .calories-number {
-    font-size: 56px;
+    font-size: 48px;
   }
 
   .calories-label {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .main-progress {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
   }
 
   .main-progress svg {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
   }
 
   .flame-icon {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
   }
 
   .flame-icon svg {
     width: 100%;
     height: 100%;
+  }
+
+  .slider-container {
+    width: 100%;
+    margin-top: 0;
   }
 
   .macro-cards-main {
