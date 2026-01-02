@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calorie Tracker</title>
+    <script>
+      // Redirect to index.html for GitHub Pages SPA support
+      // This handles 404 errors and redirects to the main app
+      var path = window.location.pathname;
+      var base = '/calorie-tracker/';
+      
+      // Remove trailing slash for comparison
+      var normalizedPath = path.endsWith('/') ? path.slice(0, -1) : path;
+      var normalizedBase = base.endsWith('/') ? base.slice(0, -1) : base;
+      
+      // Redirect if not already on index.html
+      if (normalizedPath !== normalizedBase && !path.includes('index.html')) {
+        var redirectUrl = base + (base.endsWith('/') ? '' : '/') + 'index.html';
+        if (window.location.search) redirectUrl += window.location.search;
+        if (window.location.hash) redirectUrl += window.location.hash;
+        window.location.replace(redirectUrl);
+      }
+    </script>
+    <meta http-equiv="refresh" content="0; url=/calorie-tracker/index.html">
+  </head>
+  <body>
+    <p>Weiterleitung zu <a href="/calorie-tracker/index.html">Calorie Tracker</a>...</p>
+  </body>
+</html>
+
